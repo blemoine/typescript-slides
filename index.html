@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>TypeScript</title>
+
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/league.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+		<style>
+		pre.small-code {
+			font-size:0.36em;
+		}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="reveal convex center">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>TypeScript</h1>
+					<h2>le JavaScript statiquement typé</h2>
+					<img src="images/typescript-logo.png" />
+				</section>
+
+				<section>
+					<h2>Qui suis-je ?</h2>
+					<ul>
+						<li>Benoit Lemoine</li>
+						<li>Développeur full-stack chez Xebia</li>
+						<li>@benoit_lemoine</li>
+					</ul>
+					<!-- TODO une image à la con ? -->
+				</section>
+
+				<section>
+					<h2>JavaScript Bashing<h2>
+					  <pre><code data-trim>
+
+					  </code></pre>
+					  <!-- on veut constuire un "majestic duck" -->
+					  <!-- Image d'un ornythorinque / platypus -->
+
+					<!-- Refactoring et maintenanbilité -->
+					<!-- programmation orientée objet -->
+				</section>
+
+				<section>
+					<h2>Historique de TypeScript</h2>
+					<ul>
+						<li>Made in MicroSoft en 2012...</li>
+						<li class="fragment">... mais open-source : <a href="https://github.com/Microsoft/TypeScript">https://github.com/Microsoft/TypeScript</a></li>
+					</ul>
+					<!-- TODO logo MicroSoft -->
+				</section>
+
+				<section>
+					<h2>Les types - déclarer un type</h2>
+					<pre><code data-trim>
+var name:string = 'Dolan';
+var nbLegs:number = 2;
+
+var isMamal = false;
+
+//doesn't compile
+//number is not assignable to type boolean
+isMamal = 3;
+					 </code></pre>			
+				</section>
+
+				<section>
+					<h2>Les types - les génériques</h2>
+					<pre><code data-trim>
+var featherColors:Array&lt;string&gt; = ['green', 'red', 'grey'];
+
+
+var lengthOfClors: Array&lt;number&gt; = featherColors.map(function(color) {
+	return color.length;
+}); // [5, 3, 4]
+					</code></pre>			
+				</section>
+
+
+				<section>
+					<h2>Les types - Les classes</h2> 
+					<pre><code data-trim>
+class Animal {
+  constructor(public name) { }
+}						
+
+class Duck extends Animal {
+  quack() {
+    return 'quack';
+  }
+}
+
+class Platypus extends Animal {}
+
+var dolan:Duck = new Duck('Dolan');
+console.log(dolan.quack());
+					</code></pre>
+				</section>
+
+
+				<section>
+					<h2>Les types - typage graduel</h2>
+					<pre><code data-trim  class="javascript">	
+var scrooge = new Duck('Scrooge');
+var perry = new Platypus('Perry');
+//Doesn't compile Platypus is not assignable to type Duck
+scrooge = perry;
+
+//we can assign anything to any
+var jokerDuck:any = perry;
+
+//We can assign any to everything
+scrooge = jokerDuck;
+					</code></pre>
+					<img  src="images/jokerDuck.jpg" height="250"/>					
+				</section>
+
+					<section>
+					<h2>Les types - Les  interfaces</h2> 
+					<pre ><code data-trim>
+interface Quacker {
+  name:string
+  quack():string;
+} 			
+
+class Goose extends Animal implements Quacker {
+  quack() {
+    return 'honk';
+  }
+}
+var daffie:Quacker = new Goose('daffie');
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Les types - Le typage structurel</h2> 
+					<pre><code data-trim>
+interface Quacker {
+  name:string
+  quack():string;
+} 			
+
+var chicken:Quacker = {
+  name:'Chicken', 
+  quack: function() {
+    return 'cluck cluck'
+  }
+};
+					</code></pre>
+				</section>
+				
+
+				<section>
+					<h2>Les types - Union Type</h2>
+					<pre><code data-trim>
+var perry = new Platypus('Perry');
+var donald = new Duck('Donald');
+
+var animals:Array&lt;Animal&gt; = [perry, donald];
+var duckOrPlatypus:Array&lt;Duck|Platypus&gt; = [perry, donald];
+					 </code></pre>
+				</section>
+
+				<section>
+					<h2>Les types - les annotations</h2>
+					<pre><code data-trim>
+
+					 </code></pre>
+				</section>
+
+
+				<section>
+					<h2>Les types - le RTTI</h2>
+					<pre><code data-trim>
+
+					 </code></pre>
+				</section>
+
+				
+				<section>
+					<h2>EcmaScript 2015 - EcmaScript 6</h2>
+<pre><code data-trim  class="javascript">
+
+function namesToDuck(names:Array&lt;string&gt; = []):Array&lt;Duck&gt; {
+  return names.map(name => new Duck(`${name} McScrooge`));
+}
+
+let noDucks:Array&lt;Duck&gt; = namesToDuck();
+// []
+
+const duckNames = ['Huey', 'Dewey', 'Louie'];
+
+let ducks:Array&lt;Duck&gt; = namesToDuck(duckNames);
+// [new Duck('Huey McScrooge'), 
+//    new Duck('Dewey McScrooge'), 
+//    new Duck('Louie McScrooge')]
+
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Les modules internes</h2>
+					<pre><code  data-trim class="javascript">
+//Fichier Animal.ts
+module Animal {}
+
+//Fichier Duck.ts
+/// &lt;reference path="Animal.ts" /&gt;
+module Animal {
+    var thisVariableCannotBeUseElesewhere = "test";
+    export class Duck {}
+}
+
+new Animal.Duck();
+
+import Duck = Animal.Duck;
+new Duck();
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Les modules externes</h2>
+					<h3>AMD ou Common JS</h3>
+					<pre><code  data-trim class="javascript">
+//Fichier Duck.ts
+import Animal = require('Animal');
+
+export class Duck extends Animal {}
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Les déclarations d'ambiance</h2>
+					<pre><code  data-trim class="javascript">declare var _;
+
+_.filter([1,2,3], (i) => i%2 === 0);
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Definitely Typed</h2>
+					 <a href="http://definitelytyped.org/">http://definitelytyped.org/</a>
+<pre><code  data-trim class="javascript">/// &lt;reference path="lodash/lodash.d.ts" /&gt;
+
+_.filter([1,2,3], (i) => i%2 === 0)
+_.filter([1,2,3], (i:string) => i%2 === 0) //ne compile pas
+</code></pre>
+                </section>
+				</section>
+
+				<section>
+					<h2>TSD</h2>
+				</section>
+
+				<section>
+					<h2>TypeScript 1.5</h2>
+					<ul>
+						<li>RTTI</li>
+						<li>Annotations</li>
+						<li>ES6 (Destructing assignments, for...of, generators, etc.)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>TypeScript 2.0</h2>
+					<ul>                        
+                        <li>ES6 (modules, template String, etc.)</li>
+                        <li>ES7 ? async/await</li>
+                    </ul>
+				</section>
+
+				<section>
+					     <section>
+                        <h2>Exemple Angular - Avant</h2>
+                        <pre><code class="javascript">
+angular.module('MyCtrl', ['$scope', function($scope) {
+    
+    $scope.myValue = 2;
+
+    $scope.changeValue = function() {
+        $scope.myValue = Math.random();
+    };
+
+}])                            
+                        </code></pre>
+                    </section>
+
+                    <section>
+                        <h2>Exemple Angular - Après</h2>
+                        <pre><code class="javascript">class MyCtrl {
+    static $inject = ['$scope'];
+
+    private myValue:number = 2;
+
+    constructor($scope:ng.IScope) {}    
+
+    changeValue() {
+        this.myValue = Math.random();
+    }
+}
+angular.module(MyCtrl.name, MyCtrl);
+                        </code></pre>
+                    </section>
+				</section>
+
+
+				<section>
+					<h2>Les limites</h2>
+					<ul>
+						<li>Un précompileur de plus</li>
+						<li>La vitesse de compilation</li>
+						<li>La tentation du any</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Conclusion</h2>
+					<ul>
+						<li>Migration Progressive</li>
+						<li>Compatibilité avec ES6</li>
+						<li>Refactoring simplifié</li>
+						<li>Assistance de l'IDE améliorée</li>
+					</ul>					
+				</section>
+
+
+				<section>
+					<h2>Questions&nbsp;?</h2>
+				</section>
+	
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
