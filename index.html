@@ -76,9 +76,10 @@
 					<h2>Historique de TypeScript</h2>
 					<ul>
 						<li>Made in MicroSoft en 2012...</li>
-						<li class="fragment">... mais open-source : <a href="https://github.com/Microsoft/TypeScript">https://github.com/Microsoft/TypeScript</a></li>
+						<li>... mais open-source : <a href="https://github.com/Microsoft/TypeScript">https://github.com/Microsoft/TypeScript</a></li>
 					</ul>
-					<!-- TODO logo MicroSoft -->
+					<img src="images/mslogo.png" />
+					
 				</section>
 
 				<section>
@@ -106,7 +107,6 @@ var lengthOfClors: Array&lt;number&gt; = featherColors.map(function(color) {
 }); // [5, 3, 4]
 					</code></pre>			
 				</section>
-
 
 				<section>
 					<h2>Les types - Les classes</h2> 
@@ -174,7 +174,7 @@ interface Quacker {
 var chicken:Quacker = {
   name:'Chicken', 
   quack: function() {
-    return 'cluck cluck'
+    return 'cluck cluck';
   }
 };
 					</code></pre>
@@ -281,6 +281,12 @@ _.filter([1,2,3], (i:string) => i%2 === 0) //ne compile pas
 
 				<section>
 					<h2>TSD</h2>
+					<a href="http://definitelytyped.org/tsd/">http://definitelytyped.org/tsd/</a>
+					<ul>
+						<li>Gestionnaire de dépendance pour les fichiers de définition</li>
+						<li>Pas de gestion de version (mais ça arrive...)</li>
+						<li>Syntaxe étrange&nbsp;: <code>tsd query node -v "&lt;0.10"</code></li>
+					</ul>
 				</section>
 
 				<section>
@@ -301,7 +307,7 @@ _.filter([1,2,3], (i:string) => i%2 === 0) //ne compile pas
 				</section>
 
 				<section>
-					     <section>
+					<section>
                         <h2>Exemple Angular - Avant</h2>
                         <pre><code class="javascript">
 angular.module('MyCtrl', ['$scope', function($scope) {
@@ -334,13 +340,12 @@ angular.module(MyCtrl.name, MyCtrl);
                     </section>
 				</section>
 
-
 				<section>
 					<h2>Les limites</h2>
 					<ul>
 						<li>Un précompileur de plus</li>
 						<li>La vitesse de compilation</li>
-						<li>La tentation du any</li>
+						<li>La tentation du <code>any</code></li>
 					</ul>
 				</section>
 
