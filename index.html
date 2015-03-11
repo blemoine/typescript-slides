@@ -61,24 +61,29 @@
 				</section>
 
 				<section>
-					<h2>JavaScript Bashing<h2>
-					  <pre><code data-trim>
-
-					  </code></pre>
-					  <!-- on veut constuire un "majestic duck" -->
-					  <!-- Image d'un ornythorinque / platypus -->
-
-					<!-- Refactoring et maintenanbilité -->
-					<!-- programmation orientée objet -->
+					<h2>JavaScript c'est bien, mais...</h2>
+					  <img height="300" src="images/majesticDuck.jpg" />
+					  <img class="fragment" height="300" src="images/Platypus.jpg" />
+					  
+					<aside class="notes">
+						"Je veux un canard, un animal avec un bec, qui nage et qui pond des oeufs"
+						<ul>
+							<li>Gros projets - difficultés de refactoring</li>
+							<li>Frustration face aux manques du langages (en ES5)</li>
+						</ul>
+					</aside>					
 				</section>
 
 				<section>
 					<h2>Historique de TypeScript</h2>
+					<img src="images/mslogo.png" />
 					<ul>
 						<li>Made in MicroSoft en 2012...</li>
 						<li>... mais open-source : <a href="https://github.com/Microsoft/TypeScript">https://github.com/Microsoft/TypeScript</a></li>
+						<li class="fragment">Super-ensemble d'ES5</li>
+						<li class="fragment">Typage statique</li>
+						<li class="fragment">Polyfill pour ES6</li>
 					</ul>
-					<img src="images/mslogo.png" />
 					
 				</section>
 
@@ -131,6 +136,7 @@ console.log(dolan.quack());
 
 				<section>
 					<h2>Les types - typage graduel</h2>
+					<img  src="images/jokerDuck.jpg" height="200"/>					
 					<pre><code data-trim  class="javascript">	
 var scrooge = new Duck('Scrooge');
 var perry = new Platypus('Perry');
@@ -143,10 +149,9 @@ var jokerDuck:any = perry;
 //We can assign any to everything
 scrooge = jokerDuck;
 					</code></pre>
-					<img  src="images/jokerDuck.jpg" height="250"/>					
 				</section>
 
-					<section>
+				<section>
 					<h2>Les types - Les  interfaces</h2> 
 					<pre ><code data-trim>
 interface Quacker {
@@ -161,6 +166,9 @@ class Goose extends Animal implements Quacker {
 }
 var daffie:Quacker = new Goose('daffie');
 					</code></pre>
+<aside class="notes">
+	Détruite à la compilation
+</aside>
 				</section>
 
 				<section>
@@ -179,7 +187,6 @@ var chicken:Quacker = {
 };
 					</code></pre>
 				</section>
-				
 
 				<section>
 					<h2>Les types - Union Type</h2>
@@ -191,22 +198,6 @@ var animals:Array&lt;Animal&gt; = [perry, donald];
 var duckOrPlatypus:Array&lt;Duck|Platypus&gt; = [perry, donald];
 					 </code></pre>
 				</section>
-
-				<section>
-					<h2>Les types - les annotations</h2>
-					<pre><code data-trim>
-
-					 </code></pre>
-				</section>
-
-
-				<section>
-					<h2>Les types - le RTTI</h2>
-					<pre><code data-trim>
-
-					 </code></pre>
-				</section>
-
 				
 				<section>
 					<h2>EcmaScript 2015 - EcmaScript 6</h2>
@@ -231,7 +222,7 @@ let ducks:Array&lt;Duck&gt; = namesToDuck(duckNames);
 
 				<section>
 					<h2>Les modules internes</h2>
-					<pre><code  data-trim class="javascript">
+					<pre><code data-trim class="javascript">
 //Fichier Animal.ts
 module Animal {}
 
@@ -252,7 +243,7 @@ new Duck();
 				<section>
 					<h2>Les modules externes</h2>
 					<h3>AMD ou Common JS</h3>
-					<pre><code  data-trim class="javascript">
+					<pre><code data-trim class="javascript">
 //Fichier Duck.ts
 import Animal = require('Animal');
 
@@ -262,7 +253,8 @@ export class Duck extends Animal {}
 
 				<section>
 					<h2>Les déclarations d'ambiance</h2>
-					<pre><code  data-trim class="javascript">declare var _;
+					<pre><code data-trim class="javascript">
+declare var _;
 
 _.filter([1,2,3], (i) => i%2 === 0);
 </code></pre>
@@ -271,13 +263,14 @@ _.filter([1,2,3], (i) => i%2 === 0);
 				<section>
 					<h2>Definitely Typed</h2>
 					 <a href="http://definitelytyped.org/">http://definitelytyped.org/</a>
-<pre><code  data-trim class="javascript">/// &lt;reference path="lodash/lodash.d.ts" /&gt;
+<pre><code  data-trim class="javascript">
+/// &lt;reference path="lodash/lodash.d.ts" /&gt;
 
 _.filter([1,2,3], (i) => i%2 === 0)
 _.filter([1,2,3], (i:string) => i%2 === 0) //ne compile pas
 </code></pre>
                 </section>
-				</section>
+
 
 				<section>
 					<h2>TSD</h2>
@@ -296,6 +289,10 @@ _.filter([1,2,3], (i:string) => i%2 === 0) //ne compile pas
 						<li>Annotations</li>
 						<li>ES6 (Destructing assignments, for...of, generators, etc.)</li>
 					</ul>
+					<aside class="notes">
+						RunTime Type Information<br/>
+						Introspection de type
+					</aside>
 				</section>
 
 				<section>
@@ -309,7 +306,7 @@ _.filter([1,2,3], (i:string) => i%2 === 0) //ne compile pas
 				<section>
 					<section>
                         <h2>Exemple Angular - Avant</h2>
-                        <pre><code class="javascript">
+                        <pre><code data-trim class="javascript">
 angular.module('MyCtrl', ['$scope', function($scope) {
     
     $scope.myValue = 2;
@@ -324,7 +321,7 @@ angular.module('MyCtrl', ['$scope', function($scope) {
 
                     <section>
                         <h2>Exemple Angular - Après</h2>
-                        <pre><code class="javascript">class MyCtrl {
+                        <pre><code data-trim class="javascript">class MyCtrl {
     static $inject = ['$scope'];
 
     private myValue:number = 2;
@@ -346,6 +343,7 @@ angular.module(MyCtrl.name, MyCtrl);
 						<li>Un précompileur de plus</li>
 						<li>La vitesse de compilation</li>
 						<li>La tentation du <code>any</code></li>
+						<li>Les fichiers de définition</li>
 					</ul>
 				</section>
 
