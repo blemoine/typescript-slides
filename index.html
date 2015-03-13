@@ -13,10 +13,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
 		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/league.css" id="theme">
+		
+		<link rel="stylesheet/less" type="text/css" href="css/theme/devoxx.less" id="theme">
+		<script src="js/less.min.js"></script>
 
 		<!-- Code syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<link rel="stylesheet" href="lib/css/solarized_light.css">
 
 		<!-- Printing and PDF exports -->
 		<script>
@@ -44,7 +46,7 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section>
+				<section data-background="images/devoxxBG.png" class="first-slide">
 					<h1>TypeScript</h1>
 					<h2>le JavaScript statiquement typé</h2>
 					<img src="images/typescript-logo.png" />
@@ -76,7 +78,7 @@
 
 				<section>
 					<h2>Historique de TypeScript</h2>
-					<img src="images/mslogo.png" />
+					
 					<ul>
 						<li>Made in MicroSoft en 2012...</li>
 						<li>... mais open-source : <a href="https://github.com/Microsoft/TypeScript">https://github.com/Microsoft/TypeScript</a></li>
@@ -203,19 +205,17 @@ var duckOrPlatypus:Array&lt;Duck|Platypus&gt; = [perry, donald];
 					<h2>EcmaScript 2015 - EcmaScript 6</h2>
 <pre><code data-trim  class="javascript">
 
-function namesToDuck(names:Array&lt;string&gt; = []):Array&lt;Duck&gt; {
-  return names.map(name => new Duck(`${name} McScrooge`));
+function lordify(names:Array&lt;string&gt; = []):Array&lt;string&gt; {
+  return names.map(name => `sir ${name}`);
 }
 
-let noDucks:Array&lt;Duck&gt; = namesToDuck();
+let noDucks:Array&lt;string&gt; = lordify();
 // []
 
 const duckNames = ['Huey', 'Dewey', 'Louie'];
 
-let ducks:Array&lt;Duck&gt; = namesToDuck(duckNames);
-// [new Duck('Huey McScrooge'), 
-//    new Duck('Dewey McScrooge'), 
-//    new Duck('Louie McScrooge')]
+let ducks:Array&lt;Duck&gt; = lordify(duckNames);
+// ['sir Huey McScrooge', 'sir Dewey McScrooge', 'sir Louie McScrooge']
 
 </code></pre>
 				</section>
@@ -229,7 +229,7 @@ module Animal {}
 //Fichier Duck.ts
 /// &lt;reference path="Animal.ts" /&gt;
 module Animal {
-    var thisVariableCannotBeUseElesewhere = "test";
+    var thisVariableCannotBeUsedElesewhere = "test";
     export class Duck {}
 }
 
@@ -241,8 +241,8 @@ new Duck();
 				</section>
 
 				<section>
-					<h2>Les modules externes</h2>
-					<h3>AMD ou Common JS</h3>
+					<h2>Les modules externes <br /> AMD ou Common JS</h2>
+					
 					<pre><code data-trim class="javascript">
 //Fichier Duck.ts
 import Animal = require('Animal');
@@ -266,8 +266,8 @@ _.filter([1,2,3], (i) => i%2 === 0);
 <pre><code  data-trim class="javascript">
 /// &lt;reference path="lodash/lodash.d.ts" /&gt;
 
-_.filter([1,2,3], (i) => i%2 === 0)
-_.filter([1,2,3], (i:string) => i%2 === 0) //ne compile pas
+_.filter([1, 2, 3, 4], (i) => i%2 === 0) // [2,4]
+_.filter([1, 2, 3, 4], (i:string) => i%2 === 0) //ne compile pas
 </code></pre>
                 </section>
 
@@ -276,9 +276,8 @@ _.filter([1,2,3], (i:string) => i%2 === 0) //ne compile pas
 					<h2>TSD</h2>
 					<a href="http://definitelytyped.org/tsd/">http://definitelytyped.org/tsd/</a>
 					<ul>
-						<li>Gestionnaire de dépendance pour les fichiers de définition</li>
-						<li>Pas de gestion de version (mais ça arrive...)</li>
-						<li>Syntaxe étrange&nbsp;: <code>tsd query node -v "&lt;0.10"</code></li>
+						<li>Gestionnaire de dépendances pour les fichiers de définition</li>
+						<li>Pas de gestion de version (mais ça arrive...)</li>					
 					</ul>
 				</section>
 
@@ -299,7 +298,7 @@ _.filter([1,2,3], (i:string) => i%2 === 0) //ne compile pas
 					<h2>TypeScript 2.0</h2>
 					<ul>                        
                         <li>ES6 (modules, template String, etc.)</li>
-                        <li>ES7 ? async/await</li>
+                        <li>ES7 (async/await)</li>
                     </ul>
 				</section>
 
@@ -307,32 +306,44 @@ _.filter([1,2,3], (i:string) => i%2 === 0) //ne compile pas
 					<section>
                         <h2>Exemple Angular - Avant</h2>
                         <pre><code data-trim class="javascript">
-angular.module('MyCtrl', ['$scope', function($scope) {
+angular.module('MyCtrl', ['myService', function(myService) {
     
-    $scope.myValue = 2;
+    $scope.myValue = myService.maValue;
 
     $scope.changeValue = function() {
         $scope.myValue = Math.random();
     };
+}])
 
-}])                            
+//template
+&lt;div ng-controller="MyCtrl"&gt;
+ {{myValue}}
+&lt;/div&gt;
+
                         </code></pre>
                     </section>
 
                     <section>
                         <h2>Exemple Angular - Après</h2>
-                        <pre><code data-trim class="javascript">class MyCtrl {
-    static $inject = ['$scope'];
+                        <pre><code data-trim class="javascript">
+class MyCtrl {
+    static $inject = ['myService'];
 
-    private myValue:number = 2;
-
-    constructor($scope:ng.IScope) {}    
-
+    private myValue:number;
+    constructor(myService:MyService) {
+    	this.myValue = myService.maValue;
+    }    
     changeValue() {
         this.myValue = Math.random();
     }
 }
 angular.module(MyCtrl.name, MyCtrl);
+
+//template
+&lt;div ng-controller="MyCtrl as myCtrl"&gt;
+ {{myCtrl.myValue}}
+&lt;/div&gt;
+
                         </code></pre>
                     </section>
 				</section>
@@ -342,7 +353,6 @@ angular.module(MyCtrl.name, MyCtrl);
 					<ul>
 						<li>Un précompileur de plus</li>
 						<li>La vitesse de compilation</li>
-						<li>La tentation du <code>any</code></li>
 						<li>Les fichiers de définition</li>
 					</ul>
 				</section>
@@ -357,13 +367,13 @@ angular.module(MyCtrl.name, MyCtrl);
 					</ul>					
 				</section>
 
-
 				<section>
 					<h2>Questions&nbsp;?</h2>
 				</section>
 	
 			</div>
 
+			<div class="footer"><span class="hashtag">#typescriptDevoxx</span><span class="twitter">@benoit_lemoine</span></div>
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
