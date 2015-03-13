@@ -49,7 +49,9 @@
 				<section data-background="images/devoxxBG.png" class="first-slide">
 					<h1>TypeScript</h1>
 					<h2>le JavaScript statiquement typé</h2>
+					<div class="center">
 					<img src="images/typescript-logo.png" />
+					</div>
 				</section>
 
 				<section>
@@ -138,7 +140,9 @@ console.log(dolan.quack());
 
 				<section>
 					<h2>Les types - typage graduel</h2>
-					<img  src="images/jokerDuck.jpg" height="200"/>					
+					<div class="center">
+						<img  src="images/jokerDuck.jpg" height="200"/>					
+					</div>
 					<pre><code data-trim  class="javascript">	
 var scrooge = new Duck('Scrooge');
 var perry = new Platypus('Perry');
@@ -401,6 +405,20 @@ angular.module(MyCtrl.name, MyCtrl);
 					{ src: 'plugin/notes/notes.js', async: true }
 				]
 			});
+		
+		Reveal.addEventListener( 'slidechanged', function( event ) {
+			if(event.indexh == 0) {
+				document.querySelector('.reveal').classList.add('slide0');
+			} else {
+				document.querySelector('.reveal').classList.remove('slide0');
+			}
+		    
+		} );
+
+
+		if(Reveal.getState().indexh == 0) {
+			document.querySelector('.reveal').classList.add('slide0');
+		}
 
 		</script>
 

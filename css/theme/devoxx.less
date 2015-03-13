@@ -22,10 +22,16 @@ body {
   background: #fff;
   background-color: #fff; }
 
+/*
 .slide {
 		background:url('../../images/devoxx.png') white no-repeat fixed;
 		background-size:  80px;
 
+}
+*/
+
+.center {
+	text-align:center;
 }
 
 .reveal .footer {
@@ -36,11 +42,21 @@ body {
 	width:100%;
 	color:white;
 	font-size:0.8em;
+	z-index:9;
 
+	.hashtag {
+		float:left;
+		padding-left:10px;
+	}
 	.twitter {
-	float:right;
+		float:right;
+		padding-right:10px;
 	}
 }
+.slide0 .footer {
+	background:@devoxxGreenMiddle;
+}
+
 
 .reveal {
   font-family: 'Source Sans Pro', Helvetica, sans-serif;
