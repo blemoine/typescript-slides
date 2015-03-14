@@ -64,7 +64,7 @@
 					<!-- TODO une image à la con ? -->
 				</section>
 
-				<section data-background="images/devoxx.png" >
+				<section >
 					<h2>JavaScript c'est bien, mais...</h2>
 					  <img height="300" src="images/majesticDuck.jpg" />
 					  <img class="fragment" height="300" src="images/Platypus.jpg" />
@@ -210,7 +210,7 @@ var duckOrPlatypus:Array&lt;Duck|Platypus&gt; = [perry, donald];
 <pre><code data-trim  class="javascript">
 
 function lordify(names:Array&lt;string&gt; = []):Array&lt;string&gt; {
-  return names.map(name => `sir ${name}`);
+  return names.map(name => `sir ${name} McScrooge`);
 }
 
 let noDucks:Array&lt;string&gt; = lordify();
@@ -285,39 +285,20 @@ _.filter([1, 2, 3, 4], (i:string) => i%2 === 0) //ne compile pas
 					</ul>
 				</section>
 
-				<section>
-					<h2>TypeScript 1.5</h2>
-					<ul>
-						<li>RTTI</li>
-						<li>Annotations</li>
-						<li>ES6 (Destructing assignments, for...of, generators, etc.)</li>
-					</ul>
-					<aside class="notes">
-						RunTime Type Information<br/>
-						Introspection de type
-					</aside>
-				</section>
-
-				<section>
-					<h2>TypeScript 2.0</h2>
-					<ul>                        
-                        <li>ES6 (modules, template String, etc.)</li>
-                        <li>ES7 (async/await)</li>
-                    </ul>
-				</section>
-
-				<section>
+	<section>
 					<section>
                         <h2>Exemple Angular - Avant</h2>
                         <pre><code data-trim class="javascript">
-angular.module('MyCtrl', ['myService', function(myService) {
+angular.module('MyCtrl', ['myService','$scope', 
+  function(myService, $scope) {
     
     $scope.myValue = myService.maValue;
 
     $scope.changeValue = function() {
         $scope.myValue = Math.random();
     };
-}])
+  }
+])
 
 //template
 &lt;div ng-controller="MyCtrl"&gt;
@@ -331,9 +312,9 @@ angular.module('MyCtrl', ['myService', function(myService) {
                         <h2>Exemple Angular - Après</h2>
                         <pre><code data-trim class="javascript">
 class MyCtrl {
-    static $inject = ['myService'];
-
     private myValue:number;
+
+    static $inject = ['myService'];
     constructor(myService:MyService) {
     	this.myValue = myService.maValue;
     }    
@@ -342,7 +323,6 @@ class MyCtrl {
     }
 }
 angular.module(MyCtrl.name, MyCtrl);
-
 //template
 &lt;div ng-controller="MyCtrl as myCtrl"&gt;
  {{myCtrl.myValue}}
@@ -352,12 +332,87 @@ angular.module(MyCtrl.name, MyCtrl);
                     </section>
 				</section>
 
+					<section>
+					<h2>TypeScript 1.5 - RTTI</h2>
+						<pre><code data-trim class="javascript">
+function displayFirstCharacter(word : string) {
+  document.body.innerHTML = word.charAt(0);    							
+}
+
+var x : any = 3;
+displayFirstCharacter(x);
+						</code></pre>
+						<ul>
+							<li>TypeScript 1.4&nbsp;: "undefined is not a function" sur <code>charAt</code></li>
+							<li>TypeScript 1.5&nbsp;: "'word' is not a string"</li>
+						</ul>
+						<aside class="notes">
+							RunTime Type Information<br/>
+							Introspection de type
+						</aside>
+					</section>
+					<section>
+					<h2>TypeScript 1.5 - Annotations</h2>
+					<pre><code data-trim class="javascript">
+function addAnnotation&lt;A&gt;(c: A, annotation: any): A {
+    ((&lt;any&gt;c).annotations || ((&lt;any&gt;c).annotations = [])).push(annotation);
+    return c;
+}
+
+function Template(arg: { url: string, directives: any[] }) {
+    return c => addAnnotation(c, new TemplateAnnotation(arg));
+}
+
+@Template({
+  url: '/todo.html',
+  directives: [Foreach]
+})
+class TodoApp {
+}
+
+						</code></pre>
+					</section>
+					<section>
+					<h2>TypeScript 1.5 - ES6</h2>
+					<pre><code data-trim class="javascript">
+var [m, d, y] = [3, 14, 1977];
+console.log(d) // 14
+
+for (let word of ["one", "two", "three"]) 
+  console.log(word);  //affiche "one","two","three"
+
+function* idMaker() {
+    var index = 0;
+    while(true)
+        yield index++;
+}
+
+var gen = idMaker();
+
+console.log(gen.next().value); // 0
+console.log(gen.next().value); // 1
+					</code></pre>
+					
+					</section>
+				
+
+				<section>
+					<h2>TypeScript 2.0</h2>
+					<ul>                        
+                        <li>ES6 (modules, template String, etc.)</li>
+                        <li>ES7 (async/await)</li>
+                    </ul>
+				</section>
+
+			
+
 				<section>
 					<h2>Les limites</h2>
 					<ul>
 						<li>Un précompileur de plus</li>
 						<li>La vitesse de compilation</li>
 						<li>Les fichiers de définition</li>
+						<li>Pas compatible avec JSX</li>
 					</ul>
 				</section>
 
