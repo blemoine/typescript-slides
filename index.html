@@ -82,8 +82,8 @@
 					<h2>Historique de TypeScript</h2>
 					
 					<ul>
-						<li>Made in MicroSoft en 2012...</li>
-						<li>... mais open-source : <a href="https://github.com/Microsoft/TypeScript">https://github.com/Microsoft/TypeScript</a></li>
+						<li>Made in Microsoft en 2012...</li>
+						<li>... mais open-source et libre (License Apache 2) : <a href="https://github.com/Microsoft/TypeScript">https://github.com/Microsoft/TypeScript</a></li>
 						<li class="fragment">Super-ensemble d'ES5</li>
 						<li class="fragment">Typage statique</li>
 						<li class="fragment">Polyfill pour ES6</li>
@@ -219,7 +219,8 @@ let noDucks:Array&lt;string&gt; = lordify();
 const duckNames = ['Huey', 'Dewey', 'Louie'];
 
 let ducks:Array&lt;Duck&gt; = lordify(duckNames);
-// ['sir Huey McScrooge', 'sir Dewey McScrooge', 'sir Louie McScrooge']
+// ['sir Huey McScrooge', 'sir Dewey McScrooge', 
+//  'sir Louie McScrooge']
 
 </code></pre>
 				</section>
@@ -312,7 +313,7 @@ angular.module('MyCtrl', ['myService','$scope',
                         <h2>Exemple Angular - Après</h2>
                         <pre><code data-trim class="javascript">
 class MyCtrl {
-    private myValue:number;
+    myValue:number;
 
     static $inject = ['myService'];
     constructor(myService:MyService) {
@@ -355,7 +356,8 @@ displayFirstCharacter(x);
 					<h2>TypeScript 1.5 - Annotations</h2>
 					<pre><code data-trim class="javascript">
 function addAnnotation&lt;A&gt;(c: A, annotation: any): A {
-    ((&lt;any&gt;c).annotations || ((&lt;any&gt;c).annotations = [])).push(annotation);
+    ((&lt;any&gt;c).annotations || ((&lt;any&gt;c).annotations = []))
+      .push(annotation);
     return c;
 }
 
