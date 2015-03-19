@@ -206,73 +206,106 @@ var duckOrPlatypus:Array&lt;Duck|Platypus&gt; = [perry, donald];
 				</section>
 				
 				<section>
-					<section>
+					
 					<h2>EcmaScript 2015 - EcmaScript 6</h2>
-<pre><code data-trim  class="javascript">
+<pre style="float:left;width:49%"><code data-trim  class="javascript">
+//TypeScript	
+let lordify = function(names = []) {
 
-function lordify(names:Array&lt;string&gt; = []):Array&lt;string&gt; {
-  return names.map(name => `sir ${name} McScrooge`);
+
+
+  return names
+    .map(name => `sir ${name}`);  
 }
 
-let noDucks:Array&lt;string&gt; = lordify();
-// []
-
-const duckNames = ['Huey', 'Dewey', 'Louie'];
-
-let ducks:Array&lt;string&gt; = lordify(duckNames);
-// ['sir Huey McScrooge', 'sir Dewey McScrooge', 
-//  'sir Louie McScrooge']
 
 </code></pre>
-</section>
-<section>
-	
-					<h2>EcmaScript 2015 - EcmaScript 6</h2>
-<pre><code data-trim  class="javascript">
-
-function lordify(names) {
-    if (names === void 0) { names = []; }
-    return names.map(function (name) {
-     return ("sir " + name + " McScrooge"); 
+<pre style="float:right;width:49%"><code data-trim  class="javascript">
+//JavaScript
+let lordify = function(names) {
+  if (names === void 0) { 
+    names = []; 
+  }
+  return names
+    .map(function (name) {
+      return ("sir " + name); 
     });
 }
-let noDucks = lordify();
-
-const duckNames = ['Huey', 'Dewey', 'Louie'];
-let ducks = lordify(duckNames);
 
 </code></pre>
-</section>
+
+
 				</section>
 
 				<section>
 					<h2>Les modules internes</h2>
-					<pre><code data-trim class="javascript">
-//Fichier Animal.ts
-module Animal {}
+					<pre style="float:left;width:49%;"><code data-trim class="javascript">
+//Fichier Animal.ts					
+module Animal {
+	var privateVar = "test";
+}
+
 
 //Fichier Duck.ts
 /// &lt;reference path="Animal.ts" /&gt;
 module Animal {
-    var thisVariableCannotBeUsedElesewhere = "test";
     export class Duck {}
 }
 
+
+
+
 new Animal.Duck();
 
-import Duck = Animal.Duck;
-new Duck();
+</code></pre>
+<pre style="float:right;width:49%;"><code data-trim class="javascript">
+//Fichier Animal.ts compilé	
+var Animal;
+(function (Animal) {
+    var privateVar = "test";
+})(Animal || (Animal = {}));
+
+//Fichier Duck.ts compilé
+var Animal;
+(function (Animal) {
+    var Duck = (function () {
+        function Duck() { }
+        return Duck;
+    })();
+    Animal.Duck = Duck;
+})(Animal || (Animal = {}));
+new Animal.Duck();
+
+
 </code></pre>
 				</section>
 
 				<section>
 					<h2>Les modules externes <br /> AMD ou Common JS</h2>
 					
-					<pre><code data-trim class="javascript">
-//Fichier Duck.ts
-import Animal = require('Animal');
+					<pre style="float:left;width:49%;"><code data-trim class="javascript">
+//Fichier Dolan.ts
+import Duck = require('Duck');
 
-export class Duck extends Animal {}
+
+
+
+export var dolan = new Duck('Dolan')
+</code></pre>
+<pre style="float:right;width:49%;"><code data-trim class="javascript">
+//Dolan.ts compilé en AMD
+define(
+ ["require", "exports", 'Duck'], 
+ function (require, exports, Duck) {
+    exports.dolan = new Duck('Dolan');
+ }
+);
+</code></pre>
+<pre style="float:right;width:49%;"><code data-trim class="javascript">
+//Dolan.ts compilé en CommonJS
+var Duck = require('Duck');
+
+module.exports = new Duck('Dolan')
 </code></pre>
 				</section>
 
@@ -353,31 +386,36 @@ angular.module(MyCtrl.name, MyCtrl);
                     </section>
 				</section>
 
-					<section>
-						<section>
+				<section>
+					<h2>Utiliser TypeScript</h2>
+					<ul>						
+						<li>Grunt, Gulp</li>
+						<li>Plugin pour Play, Wro4j, Grails, etc.</li>
+						<li>à la main : compilateur en JavaScript</li>
+					</ul>
+				</section>
+
+				<section>						
 					<h2>TypeScript 1.5 - RTTI</h2>
-						<pre><code data-trim class="javascript">
-function displayFirstCharacter(word : string) {
-  document.body.innerHTML = word.charAt(0);    							
+						<pre style="float:left;width:49%"><code data-trim class="javascript">
+//TypeScript
+
+
+function firstChar(word : string) {
+  return word.charAt(0);    							
 }
+
 
 var x : any = 3;
 displayFirstCharacter(x);
 						</code></pre>
-						
-						<aside class="notes">
-							RunTime Type Information<br/>
-							Introspection de type
-						</aside>
-						</section>
-						<section>
-							<h2>TypeScript 1.5 - RTTI</h2>
-							<pre><code data-trim class="javascript">
-								import * as rtts from 'rtts';
+						<pre style="float:right;width:49%"><code data-trim class="javascript">
+//JavaScript							
+import * as rtts from 'rtts';
 							
-function displayFirstCharacter(word) {
+function firstChar(word) {
   rtts.types(word, rtts.string);
-  document.body.innerHTML = word.charAt(0);    							
+  return word.charAt(0);    							
 }
 
 var x = 3;
@@ -385,7 +423,12 @@ displayFirstCharacter(x);
 
 
 						</code></pre>
-						</section>
+						
+						<aside class="notes">
+							RunTime Type Information<br/>
+							Introspection de type
+						</aside>
+						
 					</section>
 					<section>
 					<h2>TypeScript 1.5 - Annotations</h2>
@@ -440,8 +483,6 @@ console.log(gen.next().value); // 1
                         <li>ES7 (async/await)</li>
                     </ul>
 				</section>
-
-			
 
 				<section>
 					<h2>Les limites</h2>
