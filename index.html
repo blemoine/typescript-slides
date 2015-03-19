@@ -206,6 +206,7 @@ var duckOrPlatypus:Array&lt;Duck|Platypus&gt; = [perry, donald];
 				</section>
 				
 				<section>
+					<section>
 					<h2>EcmaScript 2015 - EcmaScript 6</h2>
 <pre><code data-trim  class="javascript">
 
@@ -218,11 +219,30 @@ let noDucks:Array&lt;string&gt; = lordify();
 
 const duckNames = ['Huey', 'Dewey', 'Louie'];
 
-let ducks:Array&lt;Duck&gt; = lordify(duckNames);
+let ducks:Array&lt;string&gt; = lordify(duckNames);
 // ['sir Huey McScrooge', 'sir Dewey McScrooge', 
 //  'sir Louie McScrooge']
 
 </code></pre>
+</section>
+<section>
+	
+					<h2>EcmaScript 2015 - EcmaScript 6</h2>
+<pre><code data-trim  class="javascript">
+
+function lordify(names) {
+    if (names === void 0) { names = []; }
+    return names.map(function (name) {
+     return ("sir " + name + " McScrooge"); 
+    });
+}
+let noDucks = lordify();
+
+const duckNames = ['Huey', 'Dewey', 'Louie'];
+let ducks = lordify(duckNames);
+
+</code></pre>
+</section>
 				</section>
 
 				<section>
@@ -334,6 +354,7 @@ angular.module(MyCtrl.name, MyCtrl);
 				</section>
 
 					<section>
+						<section>
 					<h2>TypeScript 1.5 - RTTI</h2>
 						<pre><code data-trim class="javascript">
 function displayFirstCharacter(word : string) {
@@ -343,14 +364,28 @@ function displayFirstCharacter(word : string) {
 var x : any = 3;
 displayFirstCharacter(x);
 						</code></pre>
-						<ul>
-							<li>TypeScript 1.4&nbsp;: "undefined is not a function" sur <code>charAt</code></li>
-							<li>TypeScript 1.5&nbsp;: "'word' is not a string"</li>
-						</ul>
+						
 						<aside class="notes">
 							RunTime Type Information<br/>
 							Introspection de type
 						</aside>
+						</section>
+						<section>
+							<h2>TypeScript 1.5 - RTTI</h2>
+							<pre><code data-trim class="javascript">
+								import * as rtts from 'rtts';
+							
+function displayFirstCharacter(word) {
+  rtts.types(word, rtts.string);
+  document.body.innerHTML = word.charAt(0);    							
+}
+
+var x = 3;
+displayFirstCharacter(x);
+
+
+						</code></pre>
+						</section>
 					</section>
 					<section>
 					<h2>TypeScript 1.5 - Annotations</h2>
@@ -422,6 +457,7 @@ console.log(gen.next().value); // 1
 					<h2>Conclusion</h2>
 					<ul>
 						<li>Migration Progressive</li>
+						<li>Facilité d'apprentissage</li>
 						<li>Compatibilité avec ES6</li>
 						<li>Refactoring simplifié</li>
 						<li>Assistance de l'IDE améliorée</li>
