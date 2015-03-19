@@ -126,13 +126,13 @@ class Animal {
 
 class Duck extends Animal {
   quack() {
-    return 'quack';
+    return "quack";
   }
 }
 
 class Platypus extends Animal {}
 
-var dolan:Duck = new Duck('Dolan');
+var dolan:Duck = new Duck("Dolan");
 console.log(dolan.quack());
 					</code></pre>
 				</section>
@@ -167,10 +167,10 @@ interface Quacker {
 
 class Goose extends Animal implements Quacker {
   quack() {
-    return 'honk';
+    return "honk";
   }
 }
-var daffie:Quacker = new Goose('daffie');
+var daffie:Quacker = new Goose("daffie");
 					</code></pre>
 <aside class="notes">
 	Détruite à la compilation
