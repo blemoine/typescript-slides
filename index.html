@@ -396,7 +396,7 @@ angular.module(MyCtrl.name, MyCtrl);
 				</section>
 
 				<section>						
-					<h2>TypeScript 1.5 - RTTI</h2>
+					<h2>TypeScript 1.5 (?) - RTTI</h2>
 						<pre style="float:left;width:49%"><code data-trim class="javascript">
 //TypeScript
 
@@ -431,25 +431,27 @@ displayFirstCharacter(x);
 						
 					</section>
 					<section>
-					<h2>TypeScript 1.5 - Annotations</h2>
-					<pre><code data-trim class="javascript">
-function addAnnotation&lt;A&gt;(c: A, annotation: any): A {
-    ((&lt;any&gt;c).annotations || ((&lt;any&gt;c).annotations = []))
-      .push(annotation);
-    return c;
-}
+					<h2>TypeScript 1.5 - Decorators</h2>
+					<pre style="float:left;width:49%"><code data-trim class="javascript">
+@annotation
+class MyClass { }
 
-function Template(arg: { url: string, directives: any[] }) {
-    return c => addAnnotation(c, new TemplateAnnotation(arg));
+function annotation(target) {
+   // Add a property on target
+   target.annotated = true;
 }
+						</code></pre>
+						<pre style="float:right;width:49%"><code data-trim class="javascript">
+var MyClass = annotation(function () {
+    function MyClass() {
+    }
+    return MyClass;
+})();
 
-@Template({
-  url: '/todo.html',
-  directives: [Foreach]
-})
-class TodoApp {
+function annotation(target) {
+    // Add a property on target
+    target.annotated = true;
 }
-
 						</code></pre>
 					</section>
 					<section>
@@ -474,12 +476,27 @@ console.log(gen.next().value); // 1
 					</code></pre>
 					
 					</section>
+				<section>
+					<h2>TypeScript 1.5 - module ES6</h2>
+					<pre><code data-trim class="javascript">
+// math.ts
+export function add(x, y) { return x + y }
+export function subtract(x, y) { return x – y }
+export default function multiply(x, y) { return x * y }
+
+
+// myFile.ts
+import {add, subtract} from "math";
+import times from "math";
+var result = times(add(2, 3), subtract(5, 3));
+					</code></pre>
+				</section>
 				
 
 				<section>
 					<h2>TypeScript 2.0</h2>
 					<ul>                        
-                        <li>ES6 (modules, template String, etc.)</li>
+                        <li>ES6 (template String++, etc.)</li>
                         <li>ES7 (async/await)</li>
                     </ul>
 				</section>
