@@ -6,736 +6,538 @@
 
 		<title>TypeScript</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="css/reveal.css">
+		
+		<link rel="stylesheet" type="text/css" href="css/theme/devoxx.css" id="theme">
+		
 
-		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/solarized_light.css">
 
-		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<!-- Printing and PDF exports -->
 		<script>
-			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
 
 		<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
 
-        <style>
-
-            .math div, .math ul {
-                text-align: left;
-            }
-
-            .reveal .math em {
-                font-size: 125%;
-                color:#08DAFF;
-            }
-
-            span.mini {
-                font-size: .48em;
-            }
-
-            ul.dialog{
-                list-style-type: none;
-            }
-
-            ul.dialog .static {
-                text-align: left;
-                margin-right:100px;
-            }
-
-            ul.dialog .dynamic {
-                text-align: right;
-                margin-left:100px;
-            }
-
-            ul.dialog  .static img,  ul.dialog .dynamic img{
-                margin: 0;
-                padding: 0;
-                border: 0;
-                font-size: 100%;
-                font: inherit;
-                vertical-align: baseline;
-                background-color: transparent;
-                outline: none;
-            }
-
-            .colored-date .year {
-                color:#F00;
-            }
-            .colored-date .month {
-                color:#0F0;
-            }
-            .colored-date .day {
-                color:#00F;
-            }
-            .colored-date .hour {
-                color:#FF0;
-            }
-            .colored-date .minute {
-                color:#F0F;
-            }
-            .colored-date .second {
-                color:#0FF;
-            }
-            .colored-date .timezone {
-                color:#A6A;
-            }
-            ul li.margin-bottom {
-                
-                margin-bottom:40px;
-            }
-          
-
-        </style>
+		<style>
+		pre.small-code {
+			font-size:0.36em;
+		}
+		</style>
 	</head>
 
 	<body>
 
-		<div class="reveal">
+		<div class="reveal convex center">
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section>
+				<section data-background="images/devoxxBG.png" class="first-slide">
 					<h1>TypeScript</h1>
-                    <h2>JavaScript<span class="fragment">, en mieux</span></h2>
+					<h2>le JavaScript statiquement typé</h2>
+					<div class="center">
+					<img src="images/typescript-logo.png" />
+					</div>
 				</section>
 
-                <section>
-                    <h1>Qui suis je&nbsp;?</h1>
-                    <ul>
-                        <li>Benoit Lemoine</li>
-                        <li class="margin-bottom"> Twitter : @benoit_lemoine</li>
-                        
-                        <li>Développeur chez Xebia</li>
-                        <li>Aime le développement front...</li>
-                        <li>...et la programmation fonctionnelle</li>
-                    </ul>
-                </section>
+				<section>
+					<h2>Qui suis-je ?</h2>
+					<ul>
+						<li>Benoit Lemoine</li>
+						<li class="fragment">Développeur full-stack chez Xebia</li>
+						<li class="fragment">@benoit_lemoine</li>
+						<li class="fragment">plus de 2000m sur les pattes avant à Goat Simulator</li>
+					</ul>
+					<!-- TODO une image à la con ? -->
+				</section>
 
-                <section>
-                    <h2>Le passé</h2>
-                    <h3>JavaScript</h3>
-                    <img src="images/past-hammer.jpg" />
-                </section>
+				<section >
+					<h2>JavaScript c'est bien, mais...</h2>
+					  <img height="300" src="images/majesticDuck.jpg" />
+					  <img class="fragment" height="300" src="images/Platypus.jpg" />
+					  
+					<aside class="notes">
+						"Je veux un canard, un animal avec un bec, qui nage et qui pond des oeufs"
+						<ul>
+							<li>Gros projets - difficultés de refactoring</li>
+							<li>Frustration face aux manques du langages (en ES5)</li>
+						</ul>
+					</aside>					
+				</section>
 
-                <section>
-                    <h2>JavaScript</h2>
-                    <ul>
-                        <li class="fragment">Langage du web</li>
-                        <li class="fragment">Typage dynamique</li>
-                        <li class="fragment">Orienté objet...</li>
-                        <li class="fragment">...sans classe</li>
-                        <li class="fragment">Fonction comme membre de 1<sup>ère</sup> classe</li>
-                        <li class="fragment">Asynchrone</li>
-                    </ul>
-                </section>
+				<section>
+					<h2>Historique de TypeScript</h2>
+					
+					<ul>
+						<li>Made in Microsoft en 2012...</li>
+						<li>... mais open-source et libre (License Apache 2) : <a href="https://github.com/Microsoft/TypeScript">https://github.com/Microsoft/TypeScript</a></li>
+						<li class="fragment">Super-ensemble d'ES5</li>
+						<li class="fragment">Typage statique</li>
+						<li class="fragment">Polyfill pour ES6</li>
+					</ul>
+					
+				</section>
 
-                 <section>
-                    <h2>JavaScript</h2>
-                    <h3>exemple</h3>
-                    <pre><code class="javascript">
-var f = function(param) {
-    if (param &lt; 0.5) {
-        var result = 0;
-    } else {
-        var result = 1;
-    }
+				<section>
+					<h2>Les types - déclarer un type</h2>
+					<pre><code data-trim>
+var name:string = 'Dolan';
+var nbLegs:number = 2;
 
-    return result;
+var isMamal = false;
+
+//doesn't compile
+//number is not assignable to type boolean
+isMamal = 3;
+					 </code></pre>			
+				</section>
+
+				<section>
+					<h2>Les types - les génériques</h2>
+					<pre><code data-trim>
+var featherColors:Array&lt;string&gt; = ['green', 'red', 'grey'];
+
+
+var lengthOfClors: Array&lt;number&gt; = featherColors.map(function(color) {
+	return color.length;
+}); // [5, 3, 4]
+					</code></pre>			
+				</section>
+
+				<section>
+					<h2>Les types - Les classes</h2> 
+					<pre><code data-trim>
+class Animal {
+  constructor(public name) { }
+}						
+
+class Duck extends Animal {
+  quack() {
+    return "quack";
+  }
 }
 
-f(2); //vaut 1
-f("0.2"); //vaut 0
-                    </code></pre>
-                     <aside class="notes">
-                        <ul>
-                            <li>stockage dans une fonction</<li>
-                            <li>typage dynamique</<li>
-                            <li>portée à la fonction</<li>
-                        </ul>
-                    </aside>
-                 </section>
+class Platypus extends Animal {}
 
-                   <section>
-                    <h2>JavaScript</h2>
-                    <h3>exemple</h3>
-                    <pre><code class="javascript">
-var i = 0;
-setTimeout(function() {
-    i = 3;
-    console.log(i);    
-}, 100);
-
-console.log(i);
-
-//Affichera 0 puis affichera 3.
-                    </code></pre>
-                 </section>
+var dolan:Duck = new Duck("Dolan");
+console.log(dolan.quack());
+					</code></pre>
+				</section>
 
 
 				<section>
-					<h2>JavaScript et ses limites</h2>
-                    <h3>Le typage dynamique</h3>
-                    <pre><code class="javascript">
-Math.max(false, -1); //renvoie 0
-true == 'true' // renvoie true
-false == 'false' // renvoie false
-"3" + 1  //renvoie "31"
-"3" - 1 // renvoie 2
-{} + [] // renvoie 0
-//etc.
-                    </code></pre>
+					<h2>Les types - typage graduel</h2>
+					<div class="center">
+						<img  src="images/jokerDuck.jpg" height="200"/>					
+					</div>
+					<pre><code data-trim  class="javascript">	
+var scrooge = new Duck('Scrooge');
+var perry = new Platypus('Perry');
+//Doesn't compile Platypus is not assignable to type Duck
+scrooge = perry;
+
+//we can assign anything to any
+var jokerDuck:any = perry;
+
+//We can assign any to everything
+scrooge = jokerDuck;
+					</code></pre>
 				</section>
 
-                
-                <section>
-                    <h2>JavaScript et ses limites</h2>
-                    <h3>Les fonctions constructrices</h3>
-                    <pre><code class="javascript">
-var Duck = function Duck(name) {
-   this.name = name;
+				<section>
+					<h2>Les types - Les  interfaces</h2> 
+					<pre ><code data-trim>
+interface Quacker {
+  name:string
+  quack():string;
+} 			
+
+class Goose extends Animal implements Quacker {
+  quack() {
+    return "honk";
+  }
+}
+var daffie:Quacker = new Goose("daffie");
+					</code></pre>
+<aside class="notes">
+	Détruite à la compilation
+</aside>
+				</section>
+
+				<section>
+					<h2>Les types - Le typage structurel</h2> 
+					<pre><code data-trim>
+interface Quacker {
+  name:string
+  quack():string;
+} 			
+
+var chicken:Quacker = {
+  name:'Chicken', 
+  quack: function() {
+    return 'cluck cluck';
+  }
 };
+					</code></pre>
+				</section>
 
-Duck.prototype.quack = function() {
-   console.log("My name is " + this.name);
-};
+				<section>
+					<h2>Les types - Union Type</h2>
+					<pre><code data-trim>
+var perry = new Platypus('Perry');
+var donald = new Duck('Donald');
 
-var howard = new Duck("Howard");
-howard.quack() //Affichage "My name is Howard"
-                    </code></pre>
-                </section>
+var animals:Array&lt;Animal&gt; = [perry, donald];
+var duckOrPlatypus:Array&lt;Duck|Platypus&gt; = [perry, donald];
+					 </code></pre>
+				</section>
+				
+				<section>
+					
+					<h2>EcmaScript 2015 - EcmaScript 6</h2>
+<pre style="float:left;width:49%"><code data-trim  class="javascript">
+//TypeScript	
+let lordify = function(names = []) {
 
-                <section>
-                    <h2>JavaScript et ses limites</h2>
-                    <h3>Le piège du <code>this</code></h3>
-                    <pre><code class="javascript">
-var Duck = function Duck(name) {
-    this.name = name;
-};
 
-Duck.prototype.quack = function() {
-    console.log("My name is " + this.name);
-};
 
-var duck = new Duck('Howard');
-// affiche "My name is undefined"
-setTimeout(duck.speak);
+  return names
+    .map(name => `sir ${name}`);  
+}
 
-// affiche "My name is Howard"
-setTimeout(function() {
-    duck.speak();
-});
-                    </code></pre>
 
-                </section>
-
-                <section>
-                    <h2>Solutions</h2>
-                    <ul>
-                        <li class="fragment">Typage Statique</li>
-                        <li class="fragment">Système de classe</li>
-                        <li class="fragment">Tout en restant au plus proche de JavaScript...</li>
-                        <li class="fragment">... et d'EcmaScript 6</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>Le présent</h2>
-                    <h3>TypeScript</h3>
-                    <img src="images/present-hammer.jpg" />
-                </section>
-
-                <section>
-                    <h2>TypeScript</h2>
-                    <ul>
-                        <li class="fragment">Made in MicroSoft...</li>
-                        <li class="fragment">... mais Open source&nbsp;: <a href="https://github.com/Microsoft/TypeScript/">https://github.com/Microsoft/TypeScript/</a></li>                        
-                        <li class="fragment">... sous license Apache 2</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>Le typage statique</h2>
-                    <h3>annotation de types</h3>
-                    <pre><code class="javascript">
-var i:number = 2;
-var j:number = 3.14159;
-var s:string = "une chaine";
-var b:boolean = true;
-var a:number[] = [1,3,4];
-                    </code></pre>
-                </section>
-
-                    <section>
-                    <h2>Le typage statique</h2>
-                    <h3>l'inférence</h3>
-                    <pre><code class="javascript">
-var s2 = "une autre chaine";
-var k = -12;
-k = s2 // ne compile pas
-                    </code></pre>
-                </section>
-
-                <section>
-                    <h2>Le typage statique</h2>
-                    <h3>les fonctions</h3>
-                    <pre><code class="javascript">
-var stringToInt = function(nbToParse:string):number {   
-       return parseInt(nbToParse, 10);   
-};
-
-var isSumEven: (a:number, b:number) => boolean = function(a, b) {
-    return (a + b) % 2 === 0
-};
-                    </code></pre>
-                </section>
-
-                <section>
-                    <h2>Le typage statique</h2>
-                    <h3>génériques</h3>
-                    <pre><code class="javascript">
-var a:Array&lt;string&gt; = ["une", "liste"];
-
-var b:Array&lt;number&gt; = a.map(function(s:string):number { 
-    return s.length;
-});
-// retourne [3, 5]
-                    </code></pre>
-                </section>
-
-                <section>
-                <h2>Le typage statique</h2>
-                <h3>best common types</h3>
-                    <pre><code class="javascript">
-//Si Mallard hérite de Duck qui hérite d'Animal                        
-var a2:Array&lt;Duck&gt; = [new Duck(), new Mallard()]
-
-var a3:Array&lt;Animal&gt; = [new Duck(), new Cow()]
-
-var a4:Array&lt;any&gt; = ["une chaine", 3]
 </code></pre>
-                </section>
-
-                <section>
-                    <h2>Le typage graduel</h2>
-                    <img src="images/joker.jpg"/>
-                </section>
-
-                <section>
-                    <h2>Le typage graduel</h2>
-                    <pre><code class="javascript">
-var a = 3;
-var b = "chaine";
-b = a; // ne compile pas
-
-var c:any = true;
-c = a //compile
-b = c //compile
-                    </code></pre>
-                </section>
-
-                <section>
-                    <section>
-                    <h2>Les classes</h2>
-                    <pre><code class="javascript">class Duck {
-    static saying = 'My name is '
-
-    constructor(private name:string) {}
-
-    public quack():void { console.log(Duck.saying + this.name); }
-
-    get nameLength():number { return this.name.length; }
-}
-
-var howard = new Duck('Howard');
-howard.quack();
-howard.nameLength;
-howard.name //ne compile pas
-                    </code></pre>
-                    </section>
-                    <section>
-                        <pre><code class="javascript">var Duck = (function () {
-    function Duck(name) {
-        this.name = name;
-    }
-    Duck.prototype.quack = function () {
-        console.log(Duck.saying + this.name);
-    };
-    Object.defineProperty(Duck.prototype, "nameLength", {
-        get: function () {
-            return this.name.length;
-        },
-        enumerable: true,
-        configurable: true
+<pre style="float:right;width:49%"><code data-trim  class="javascript">
+//JavaScript
+let lordify = function(names) {
+  if (names === void 0) { 
+    names = []; 
+  }
+  return names
+    .map(function (name) {
+      return ("sir " + name); 
     });
-    Duck.saying = 'My name is ';
-    return Duck;
-})();
-                        </code></pre>
-                    </section>
-
-                </section>
-
-                <section>
-                    <h2>Les interfaces</h2>
-                    <h3>le typage structurel</h3>                    
-                  <pre><code class="javascript">
-interface Nameable {
-   name:string
 }
 
-class Duck implements Nameable {
-   constructor(public name:string) {}
+</code></pre>
+
+
+				</section>
+
+				<section>
+					<h2>Les modules internes</h2>
+					<pre style="float:left;width:49%;"><code data-trim class="javascript">
+//Fichier Animal.ts					
+module Animal {
+	var privateVar = "test";
 }
 
-var d:Nameable = new Duck('Donald');
-var structuralD:Nameable = {name:'Daffy'};
-                  </code></pre>
-                </section>
-
-                <section>
-                    <h2>Les interfaces</h2>
-                    <h3>limites</h3>
-                    <pre><code class="javascript">
-interface Nameable {
-   name:string
-}
-
-function isNameable(p) {
-    //ne compile pas
-    //Nameable n'est pas présent au Runtime
-    return p instanceof Nameable;
-}
-                    </code></pre>
-                </section>
-
-                <section>
-                    <section>
-                    <h2>Enum</h2>
-                    <pre><code class="javascript">
-enum Color {
-    Red, Green, Blue
-};
-var c: Color = Color.Green; 
-                    </code></pre>
-                    </section>
-                    <section>
-                    <pre><code class="javascript">
-var Color;
-(function (Color) {
-    Color[Color["Red"] = 0] = "Red";
-    Color[Color["Green"] = 1] = "Green";
-    Color[Color["Blue"] = 2] = "Blue";
-})(Color || (Color = {}));
-
-var c = 1 /* Green */;
-                    </code></pre>
-                    </section>
-                </section>
-
-                <section>
-                    <h2>Arrow Functions</h2>
-                    <pre><code class="javascript">
-[1, 2, 3].map( (i:number) => i + 2) // renvoie [3, 4, 5]
-
-[1, 2, 3].filter( (nb,index) => {
-  return index%2 !== 0;
-}); // renvoie [2]
-                    </code></pre>                  
-                </section>
-
-                <section>
-                    <section>
-                    <h2>Arrow Functions - this</h2>                    
-                    <pre><code class="javascript">
-class Duck {
-    
-    constructor(private name:string) {}
-    
-    quack() {
-        setTimeout(() => console.log("quack "+this.name))
-    }
-}
-                    </code></pre>
-                </section>
-                <section>
-                    <pre><code class="javascript">
-var Duck = (function () {
-    function Duck(name) {
-        this.name = name;
-    }
-    Duck.prototype.quack = function () {
-        var _this = this;
-        setTimeout(function () { return console.log("quack " + _this.name); });
-    };
-    return Duck;
-})();
-
-                    </code></pre>
-                </section>
-                </section>
-
-                <section>
-                    <h2>Default value</h2>
-                    <pre><code class="javascript">
-function add(a, b = 3) { return a + b }
-add(2) // renvoie 5
-add(2, 10) // renvoie 12
-                    </code></pre>
-                </section>
-
-                <section>
-                    <h2>Rest parameter</h2>
-                    <pre><code class="javascript">
-function buildName(firstName: string, ...restOfName: string[]) {
-    return firstName + " " + restOfName.join(" ");
-}
-
-var employeeName = buildName("Joseph", "Samuel", "Lucas", "MacKinzie");
-                    </code></pre>
-                </section>
-
-                <section>
-                    <h2>Les modules internes</h2>
-                    <pre><code class="javascript">//Fichier Animal.ts
-module Animal {}
 
 //Fichier Duck.ts
 /// &lt;reference path="Animal.ts" /&gt;
 module Animal {
-    var thisVariableCannotBeUseElesewhere = "test";
     export class Duck {}
 }
 
+
+
+
 new Animal.Duck();
 
-import Duck = Animal.Duck;
-new Duck();
-                    </code></pre>
-                </section>
-
-                <section>
-                    <h2>Les modules externes</h2>
-                    <h3>AMD / commonJS</h3>                    
-<pre><code class="javascript">//Fichier Horse.ts
-import Animal = require('Animal');
-
-export class Horse extends Animal {}
 </code></pre>
-                </section>
+<pre style="float:right;width:49%;"><code data-trim class="javascript">
+//Fichier Animal.ts compilé	
+var Animal;
+(function (Animal) {
+    var privateVar = "test";
+})(Animal || (Animal = {}));
 
-                <section>
-                    <h2>Déclaration d'ambiance</h2>
-<pre><code class="javascript">declare var _;
+//Fichier Duck.ts compilé
+var Animal;
+(function (Animal) {
+    var Duck = (function () {
+        function Duck() { }
+        return Duck;
+    })();
+    Animal.Duck = Duck;
+})(Animal || (Animal = {}));
+new Animal.Duck();
+
+
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Les modules externes <br /> AMD ou Common JS</h2>
+					
+					<pre style="float:left;width:49%;"><code data-trim class="javascript">
+//Fichier Dolan.ts
+import Duck = require('Duck');
+
+
+
+
+export var dolan = new Duck('Dolan')
+</code></pre>
+<pre style="float:right;width:49%;"><code data-trim class="javascript">
+//Dolan.ts compilé en AMD
+define(
+ ["require", "exports", 'Duck'], 
+ function (require, exports, Duck) {
+    exports.dolan = new Duck('Dolan');
+ }
+);
+</code></pre>
+<pre style="float:right;width:49%;"><code data-trim class="javascript">
+//Dolan.ts compilé en CommonJS
+var Duck = require('Duck');
+
+module.exports = new Duck('Dolan')
+</code></pre>
+				</section>
+
+				<section>
+					<h2>Les déclarations d'ambiance</h2>
+					<pre><code data-trim class="javascript">
+declare var _;
 
 _.filter([1,2,3], (i) => i%2 === 0);
 </code></pre>
-                </section>
+				</section>
 
+				<section>
+					<h2>Definitely Typed</h2>
+					 <a href="http://definitelytyped.org/">http://definitelytyped.org/</a>
+<pre><code  data-trim class="javascript">
+/// &lt;reference path="lodash/lodash.d.ts" /&gt;
 
-                <section>
-                    <h2>L'ecosystème</h2>
-                    <h3>Definitely Typed</h3>
-                    <a href="http://definitelytyped.org/">http://definitelytyped.org/</a>
-<pre><code class="javascript">/// &lt;reference path="lodash/lodash.d.ts" /&gt;
-
-_.filter([1,2,3], (i) => i%2 === 0)
-_.filter([1,2,3], (i:string) => i%2 === 0) //ne compile pas
+_.filter([1, 2, 3, 4], (i) => i%2 === 0) // [2,4]
+_.filter([1, 2, 3, 4], (i:string) => i%2 === 0) //ne compile pas
 </code></pre>
                 </section>
 
-                <section>
-                    <h2>L'écosystème</h2>
-                    <h3>TSD</h3>
-                    <a href="http://definitelytyped.org/tsd/">http://definitelytyped.org/tsd/</a>
-                    <ul>
-                        <li class="fragment">Gestionnaire de dépendances pour les fichiers de définitions</li>
-                        <li class="fragment"><code>tsd install jquery --save</code></li>
-                        <li class="fragment">Syntaxe obscure</li>
-                        <li class="fragment">Pas de versionning simple par rapport aux versions des librairies</li>
-                    </ul>
-                </section>
-               
-                <section>
-                    <h2>L'écosystème</h2>
-                    <h3>TsLint</h3>
-                    <ul>
-                        <li class="fragment">Fonctionnalités similaires à JsHint / JsLint</li>
-                        <li class="fragment">Avec du spécifique TypeScript&nbsp;: nom de classe, attribut dans constructeur, etc.</li>
-                    </ul>
-                </section>
 
-                <section>
-                    <h2>Les limites</h2>
-                    <ul>
-                        <li class="fragment">La vitesse du compilateur</li>
-                        <li class="fragment">Les IDE qui ne sont pas Visual Studio</li>
-                        <li class="fragment">La tentation du <code>any</code></li>
-                    </ul>
-                </section>
+				<section>
+					<h2>TSD</h2>
+					<a href="http://definitelytyped.org/tsd/">http://definitelytyped.org/tsd/</a>
+					<ul>
+						<li>Gestionnaire de dépendances pour les fichiers de définition</li>
+						<li>Pas de gestion de version (mais ça arrive...)</li>					
+					</ul>
+				</section>
 
-                <section>
-                    <section>
+	<section>
+					<section>
                         <h2>Exemple Angular - Avant</h2>
-                        <pre><code class="javascript">
-angular.module('MyCtrl', ['$scope', function($scope) {
+                        <pre><code data-trim class="javascript">
+angular.module('MyCtrl', ['myService','$scope', 
+  function(myService, $scope) {
     
-    $scope.myValue = 2;
-
-    $scope.watch('myValue', function(newValue, oldValue) {
-        console.log('maValueChanged from ' + newValue + ' to ' + oldValue)
-    });
+    $scope.myValue = myService.maValue;
 
     $scope.changeValue = function() {
         $scope.myValue = Math.random();
     };
+  }
+])
 
-}])                            
+//template
+&lt;div ng-controller="MyCtrl"&gt;
+ {{myValue}}
+&lt;/div&gt;
+
                         </code></pre>
                     </section>
 
                     <section>
                         <h2>Exemple Angular - Après</h2>
-                        <pre><code class="javascript">class MyCtrl {
-    static $inject = ['$scope'];
+                        <pre><code data-trim class="javascript">
+class MyCtrl {
+    myValue:number;
 
-    private myValue:number = 2;
-
-    constructor($scope:ng.IScope) {
-        $scope.$watch(() => this.myValue,  this.logValue);
+    static $inject = ['myService'];
+    constructor(myService:MyService) {
+    	this.myValue = myService.maValue;
     }    
-
     changeValue() {
         this.myValue = Math.random();
     }
-    private logValue(newValue:number, oldValue:number) {
-        console.log('maValueChanged from ' + newValue + ' to ' + oldValue)
-    }
 }
 angular.module(MyCtrl.name, MyCtrl);
+//template
+&lt;div ng-controller="MyCtrl as myCtrl"&gt;
+ {{myCtrl.myValue}}
+&lt;/div&gt;
+
                         </code></pre>
                     </section>
-                </section>
+				</section>
 
-                <section>
-                    <h2>Le futur</h2>
-                    <h3>les enfants de TypeScript&nbsp;?</h3>
-                    <img src="images/future-hammer.jpg" />
-                </section>
+				<section>
+					<h2>Utiliser TypeScript</h2>
+					<ul>						
+						<li>Grunt, Gulp</li>
+						<li>Plugin pour Play, Wro4j, Grails, etc.</li>
+						<li>à la main : compilateur en JavaScript</li>
+					</ul>
+				</section>
 
-                <section>
-                    <h2>AtScript</h2>
-                    <div>
-                        <a href="https://docs.google.com/document/d/11YUzC-1d0V1-Q3V0fQ7KSit97HnZoKVygDxpWzEYW0U/edit">https://docs.google.com/document/d/11YUzC-1d0V1-Q3V0fQ7KSit97HnZoKVygDxpWzEYW0U/edit</a>
-                    </div>
-                    <ul>
-                        <li class="fragment">Made in Google...</li>
-                        <li class="fragment">...pour Angular 2</li>
-                        <li class="fragment">Typage graduel réel</li>
-                        <li class="fragment">Annotation</li>
-                    </ul>
-                </section>
+				<section>						
+					<h2>TypeScript 1.5 (?) - RTTI</h2>
+						<pre style="float:left;width:49%"><code data-trim class="javascript">
+//TypeScript
 
-                <section>
-                    <h2>AtScript</h2>
-                    <pre><code class="javascript">
-@Component()
-class MyApp {
-    server:Server;
-    @Bind('name') name:string;
-    @Event('foo') fooFn:Function;
 
-    @Inject()
-    constructor(@parent server:Server) {}
-
-    greet():string {}
+function firstChar(word : string) {
+  return word.charAt(0);    							
 }
-                    </code></pre>
-                </section>
 
-                <section>
-                    <h2>Flow</h2>
-                    <div>
-                    <a href="http://flowtype.org/">http://flowtype.org/</a>
-                    </div>
-                    <ul>
-                        <li class="fragment">Made in Facebook...</li>
-                        <li class="fragment">... pour compatibilité avec React et JSX</li>
-                        <li class="fragment">Outils d'analyse syntaxique</li>
-                        <li class="fragment">Avec un peu de sucre</li>
-                    </ul>
-                </section>
 
-                <section>
-                    <h2>Flow</h2>
-                    <pre><code class="javascript">
-/* @flow */
+var x : any = 3;
+displayFirstCharacter(x);
+						</code></pre>
+						<pre style="float:right;width:49%"><code data-trim class="javascript">
+//JavaScript							
+import * as rtts from 'rtts';
+							
+function firstChar(word) {
+  rtts.types(word, rtts.string);
+  return word.charAt(0);    							
+}
 
-function foo(x) {
-    if (typeof x === 'string') {
-        return x.length;
-    } else {
-        return x;
+var x = 3;
+displayFirstCharacter(x);
+
+
+						</code></pre>
+						
+						<aside class="notes">
+							RunTime Type Information<br/>
+							Introspection de type
+						</aside>
+						
+					</section>
+					<section>
+					<h2>TypeScript 1.5 - Decorators</h2>
+					<pre style="float:left;width:49%"><code data-trim class="javascript">
+@annotation
+class MyClass { }
+
+function annotation(target) {
+   // Add a property on target
+   target.annotated = true;
+}
+						</code></pre>
+						<pre style="float:right;width:49%"><code data-trim class="javascript">
+var MyClass = annotation(function () {
+    function MyClass() {
     }
+    return MyClass;
+})();
+
+function annotation(target) {
+    // Add a property on target
+    target.annotated = true;
+}
+						</code></pre>
+					</section>
+					<section>
+					<h2>TypeScript 1.5 - ES6</h2>
+					<pre><code data-trim class="javascript">
+var [m, d, y] = [3, 14, 1977];
+console.log(d) // 14
+
+for (let word of ["one", "two", "three"]) 
+  console.log(word);  //affiche "one","two","three"
+
+function* idMaker() {
+    var index = 0;
+    while(true)
+        yield index++;
 }
 
-var res = foo('Hello') + foo(42);
-                    </code></pre>
-                </section>
+var gen = idMaker();
 
-                <section>
-                    <h2>TypeScript 1.4</h2>
-                    <ul>
-                        <li class="fragment">Union Type</li>
-                        <li class="fragment">let/const</li>
-                        <li class="fragment">Template strings</li>
-                        <li class="fragment">API Compilateur</li>
+console.log(gen.next().value); // 0
+console.log(gen.next().value); // 1
+					</code></pre>
+					
+					</section>
+				<section>
+					<h2>TypeScript 1.5 - module ES6</h2>
+					<pre><code data-trim class="javascript">
+// math.ts
+export function add(x, y) { return x + y }
+export function subtract(x, y) { return x – y }
+export default function multiply(x, y) { return x * y }
+
+
+// myFile.ts
+import {add, subtract} from "math";
+import times from "math";
+var result = times(add(2, 3), subtract(5, 3));
+					</code></pre>
+				</section>
+				
+
+				<section>
+					<h2>TypeScript 2.0</h2>
+					<ul>                        
+                        <li>ES6 (template String++, etc.)</li>
+                        <li>ES7 (async/await)</li>
                     </ul>
-                </section>
+				</section>
 
-                <section>
-                    <h2>TypeScript 1.5</h2>
-                    <ul>
-                        <li class="fragment">Destructing assignments</li>
-                        <li class="fragment">for...of</li>
-                        <li class="fragment">Generators</li>
-                    </ul>
-                </section>
+				<section>
+					<h2>Les limites</h2>
+					<ul>
+						<li>Un précompileur de plus</li>
+						<li>La vitesse de compilation</li>
+						<li>Les fichiers de définition</li>
+						<li>Pas compatible avec JSX</li>
+					</ul>
+				</section>
 
-                <section>
-                    <h2>TypeScript 2.0</h2>
-                    <ul>
-                        <li class="fragment">Modules ES6</li>
-                        <li class="fragment">Toujours plus d'ES6</li>
-                        <li class="fragment">async/await</li>
-                    </ul>
-                </section>
+				<section>
+					<h2>Conclusion</h2>
+					<ul>
+						<li>Migration Progressive</li>
+						<li>Facilité d'apprentissage</li>
+						<li>Compatibilité avec ES6</li>
+						<li>Refactoring simplifié</li>
+						<li>Assistance de l'IDE améliorée</li>
+					</ul>					
+				</section>
 
-                <section>
-                    <h2>Question&nbsp;?</h2>
-                </section>
+				<section>
+					<h2>Questions&nbsp;?</h2>
+				</section>
+	
+			</div>
 
-
-            		</div>
-
+			<div class="footer"><span class="hashtag">#typescriptDevoxx</span><span class="twitter">@benoit_lemoine</span></div>
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.min.js"></script>
+		<script src="js/reveal.js"></script>
 
 		<script>
 
-			// Full list of configuration options available here:
+			// Full list of configuration options available at:
 			// https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
 				controls: true,
@@ -743,24 +545,32 @@ var res = foo('Hello') + foo(42);
 				history: true,
 				center: true,
 
-				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
 
-				// Parallax scrolling
-				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
-				// parallaxBackgroundSize: '2100px 900px',
-
-				// Optional libraries used to extend on reveal.js
+				// Optional reveal.js plugins
 				dependencies: [
 					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
 					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
 				]
 			});
+		
+		Reveal.addEventListener( 'slidechanged', function( event ) {
+			if(event.indexh == 0) {
+				document.querySelector('.reveal').classList.add('slide0');
+			} else {
+				document.querySelector('.reveal').classList.remove('slide0');
+			}
+		    
+		} );
 
+
+		if(Reveal.getState().indexh == 0) {
+			document.querySelector('.reveal').classList.add('slide0');
+		}
 
 		</script>
 
