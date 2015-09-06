@@ -14,11 +14,10 @@
 
 		<link rel="stylesheet" href="css/reveal.css">
 		
-		<link rel="stylesheet" type="text/css" href="css/theme/devoxx.css" id="theme">
-		
+		<link rel="stylesheet" href="css/theme/league.css" id="theme">
 
 		<!-- Code syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/solarized_light.css">
+		<link rel="stylesheet" href="lib/css/zenburn.css">
 
 		<!-- Printing and PDF exports -->
 		<script>
@@ -46,18 +45,7 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section>
-				      Historique de JS (parle d'ES4, action script)
-				      Microsoft
-				      Piège du système de type (sound)
-				      Langage feature (parler import / decorateur en plus + ES6)
-				      Comparaison Babel
-				      Utilisation dans grunt/gulp
- 				      Utilisation avec JSPM
-				      Construire une appli angular 2 / aurelia ?
-   				      
-				</section>
-				<section data-background="images/devoxxBG.png" class="first-slide">
+				<section class="first-slide">
 					<h1>TypeScript</h1>
 					<h2>le JavaScript statiquement typé</h2>
 					<div class="center">
@@ -69,11 +57,23 @@
 					<h2>Qui suis-je ?</h2>
 					<ul>
 						<li>Benoit Lemoine</li>
-						<li class="fragment">Développeur full-stack chez Xebia</li>
-						<li class="fragment">@benoit_lemoine</li>
-						<li class="fragment">plus de 2000m sur les pattes avant à Goat Simulator</li>
+						<li class="fragment">Développeur full-stack chez Captain Dash</li>
+						<li class="fragment">@benoit_lemoine</li>						
 					</ul>
-					<!-- TODO une image à la con ? -->
+				</section>
+
+				<section>
+					<h2>JavaScript en 2015...</h2>
+					<img src="images/dogJs.jpg" style="width:50%"/>
+					<ul>
+						<li class="fragment">tout le monde en fait...</li>
+						<li class="fragment">...pour coder tout et n'importe quoi</li>
+					</ul>						
+				</section>
+		
+				<section>
+					<h2>À la mode != Pratique</h2>
+					<img src="images/la-mode-wtf.jpg" style="width:45%" />
 				</section>
 
 				<section >
@@ -91,7 +91,20 @@
 				</section>
 
 				<section>
-					<h2>Historique de TypeScript</h2>
+					<h2>Javascript en 2015 c'est...</h2>
+					<h3 class="fragment">... pleins de gens qui se plaignent de JavaScript</h3>
+					<p  class="fragment">Et un site dédié : <a href="http://wtfjs.com/">wtfjs.com</a></p>
+				</section>
+
+				<section>
+					<h2>Transpilers</h2>
+					TODO image de bender
+					Je vais faire le miens de langage, avec des tables de black jack et des putes.
+					URL du site avec tous les langages
+				</section>
+
+				<section>
+					<h2>TypeScript</h2>
 					
 					<ul>
 						<li>Made in Microsoft en 2012...</li>
@@ -99,8 +112,12 @@
 						<li class="fragment">Super-ensemble d'ES5</li>
 						<li class="fragment">Typage statique</li>
 						<li class="fragment">Polyfill pour ES6</li>
-					</ul>
-					
+					</ul>					
+				</section>
+
+				<section>
+					<h2>Le système de type</h2>
+					Une image d'équation ?
 				</section>
 
 				<section>
@@ -120,10 +137,10 @@ isMamal = 3;
 				<section>
 					<h2>Les types - les génériques</h2>
 					<pre><code data-trim>
-var featherColors:Array&lt;string&gt; = ['green', 'red', 'grey'];
+var featherColors:Array&lt;string&gt; = ['pink', 'lime', 'magenta'];
 
 
-var lengthOfClors: Array&lt;number&gt; = featherColors.map(function(color) {
+var lengthOfColors: Array&lt;number&gt; = featherColors.map(function(color) {
 	return color.length;
 }); // [5, 3, 4]
 					</code></pre>			
@@ -142,19 +159,21 @@ class Duck extends Animal {
   }
 }
 
-class Platypus extends Animal {}
+class Platypus extends Animal {
+  static isMamal = true;
+}
 
 var dolan:Duck = new Duck("Dolan");
 console.log(dolan.quack());
 					</code></pre>
 				</section>
 
+				<section>
+					<h2>Les types - Les enums</h2>
+				</section>
 
 				<section>
-					<h2>Les types - typage graduel</h2>
-					<div class="center">
-						<img  src="images/jokerDuck.jpg" height="200"/>					
-					</div>
+					<h2>Les types - typage graduel</h2>					
 					<pre><code data-trim  class="javascript">	
 var scrooge = new Duck('Scrooge');
 var perry = new Platypus('Perry');
@@ -216,111 +235,125 @@ var animals:Array&lt;Animal&gt; = [perry, donald];
 var duckOrPlatypus:Array&lt;Duck|Platypus&gt; = [perry, donald];
 					 </code></pre>
 				</section>
+				<section>
+					<h2>Pour les puristes</h2>
+					Le systeme de types n'est pas sound
+				</section>	
 				
 				<section>
-					
-					<h2>EcmaScript 2015 - EcmaScript 6</h2>
-<pre style="float:left;width:49%"><code data-trim  class="javascript">
-//TypeScript	
-let lordify = function(names = []) {
+					<h2>ES6 - ES7</h2>
+					TODO image de sucre
+				</section>
 
+				<section>
+					<h2>Déclaration de variable</h2>
+<pre><code data-trim class="javascript">
+const myVar = 2;
 
+//ne compile pas
+myVar = 3;
+</code></pre>					
+<pre><code data-trim class="javascript">
 
-  return names
-    .map(name => `sir ${name}`);  
+if(true) {
+  let myVar = 2;
 }
-
-
+//ne compile pas	
+console.log(myVar);
 </code></pre>
-<pre style="float:right;width:49%"><code data-trim  class="javascript">
-//JavaScript
-let lordify = function(names) {
-  if (names === void 0) { 
-    names = []; 
-  }
-  return names
-    .map(function (name) {
-      return ("sir " + name); 
+				</section>
+
+				<section>
+					<h2>Arrow function</h2>					
+<pre><code data-trim class="javascript">
+[1,2,3].map( value => value + 1) //vaut [2,3,4]	
+
+class JqueryController {
+  public myVar = 2;
+  constructor() {
+    $('#unElementDuDom').click(function() {
+      console.log(this.myVar); //Affiche undefined
     });
+
+    $('#unElementDuDom').click( () => {
+      console.log(this.myVar); //Affiche 2
+    });
+  }
 }
-
-</code></pre>
-
-
+</code></pre>					
 				</section>
 
 				<section>
-					<h2>Les modules internes</h2>
-					<pre style="float:left;width:49%;"><code data-trim class="javascript">
-//Fichier Animal.ts					
-module Animal {
-	var privateVar = "test";
-}
-
-
-//Fichier Duck.ts
-/// &lt;reference path="Animal.ts" /&gt;
-module Animal {
-    export class Duck {}
-}
-
-
-
-
-new Animal.Duck();
-
-</code></pre>
-<pre style="float:right;width:49%;"><code data-trim class="javascript">
-//Fichier Animal.ts compilé	
-var Animal;
-(function (Animal) {
-    var privateVar = "test";
-})(Animal || (Animal = {}));
-
-//Fichier Duck.ts compilé
-var Animal;
-(function (Animal) {
-    var Duck = (function () {
-        function Duck() { }
-        return Duck;
-    })();
-    Animal.Duck = Duck;
-})(Animal || (Animal = {}));
-new Animal.Duck();
-
-
-</code></pre>
+					<h2>String Template</h2>					
+<pre><code data-trim class="javascript">
+let myVar = 23	
+var aString = `	
+&lt;div&gt;
+  &lt;span&gt;${23}&lt;/span&gt;
+&lt;/div&gt;
+`
+</code></pre>					
 				</section>
 
 				<section>
-					<h2>Les modules externes <br /> AMD ou Common JS</h2>
-					
-					<pre style="float:left;width:49%;"><code data-trim class="javascript">
-//Fichier Dolan.ts
-import Duck = require('Duck');
+					<h2>Autres choses</h2>
+<pre><code data-trim class="javascript">
+var add = function(nb1, nb2 = 0) {
+  return nb1 + nb2;
+}
+console.log(add(1,2)) // 3
+console.log(add(1)) // 1
 
 
+var sum = function(...nb:Array&lt;number&gt;) {
+  return nb.reduce(add, 0);
+}
 
-
-export var dolan = new Duck('Dolan')
-</code></pre>
-<pre style="float:right;width:49%;"><code data-trim class="javascript">
-//Dolan.ts compilé en AMD
-define(
- ["require", "exports", 'Duck'], 
- function (require, exports, Duck) {
-    exports.dolan = new Duck('Dolan');
- }
-);
-</code></pre>
-<pre style="float:right;width:49%;"><code data-trim class="javascript">
-//Dolan.ts compilé en CommonJS
-var Duck = require('Duck');
-
-module.exports = new Duck('Dolan')
-</code></pre>
+console.log(sum(1,2,3,4)) // 10
+</code></pre>										
 				</section>
 
+				<section>
+					<h2>Le cauchemar du Javaïste</h2>
+					<img src="images/annotations-everywhere.jpg" />
+				</section>
+
+				<section>
+					<h2>Les décorateurs</h2>
+<pre><code data-trim class="javascript">
+@Component({selector: 'my-app'})
+@View({template: '<h1>Hi {{ name }}</h1>'})
+// Component controller
+class MyAppComponent {
+  constructor() {
+    this.name = 'Howard';
+  }
+}
+</code></pre>					
+				</section>
+
+				<section>
+					<h2>Les modules</h2>					
+					<img src="images/standards" />
+				</section>
+
+				<section>
+					<h2>Module interne</h2>
+				</section>
+
+				<section>
+					<h2>Module externe</h2>
+				</section>
+
+				<section>
+					<h2>Module ES6</h2>
+				</section>
+
+				<section>
+					<h2>Utiliser TypeScript avec le monde extérieur</h2>
+					//TODO image à la con ? Communication avec des aliens ? Sortie de bunker ?
+				</section>
+			
 				<section>
 					<h2>Les déclarations d'ambiance</h2>
 					<pre><code data-trim class="javascript">
@@ -345,13 +378,34 @@ _.filter([1, 2, 3, 4], (i:string) => i%2 === 0) //ne compile pas
 				<section>
 					<h2>TSD</h2>
 					<a href="http://definitelytyped.org/tsd/">http://definitelytyped.org/tsd/</a>
-					<ul>
-						<li>Gestionnaire de dépendances pour les fichiers de définition</li>
-						<li>Pas de gestion de version (mais ça arrive...)</li>					
-					</ul>
+					<img src="images/yoDawg" />
 				</section>
 
+		<section>
+			<h2>Pourquoi choisir Typescript&nbsp;?</h2>
+
+			TODO comparaison avec Babel, utilisation dans Angular 2 / Aurélia
+		</section>
+
+		<section>
+			<h2>TypeScript sur un vrai projet</h2>
+		</section>
+
+		<section>
+			<h2>List des prérequis</h2>
+			Module ES6
+			Cible ES5
+			Sur un framework standard aujourd'hui (Angular 1.x)
+		</section>
+
+		<section>
+			Montrer le pipeline gulp
+			(En gros qu'il faut compiler vers ES6 puis avec Babel puis avec JSPM)
+		</section>
+
+
 	<section>
+
 					<section>
                         <h2>Exemple Angular - Avant</h2>
                         <pre><code data-trim class="javascript">
@@ -370,7 +424,6 @@ angular.module('MyCtrl', ['myService','$scope',
 &lt;div ng-controller="MyCtrl"&gt;
  {{myValue}}
 &lt;/div&gt;
-
                         </code></pre>
                     </section>
 
@@ -399,19 +452,36 @@ angular.module(MyCtrl.name, MyCtrl);
 				</section>
 
 				<section>
-					<h2>Utiliser TypeScript</h2>
-					<ul>						
-						<li>Grunt, Gulp</li>
-						<li>Plugin pour Play, Wro4j, Grails, etc.</li>
-						<li>à la main : compilateur en JavaScript</li>
+					<h2>Exemple post moderne</h2>
+					Angular 2 / Aurélia
+				</section>
+
+				<section>
+					<h2>Le futur</h2>
+				</section>
+
+				<section>
+					<h2>Typescript 1.6</h2>
+					<ul>
+						<li>Support de JSX</li>
+						<li>Type intersection&nbsp;: <code>Duck &amp; Hero</code></li>
+						<li>Class expression&nbsp;: <code>let maClass = class {}</code></li>
+						<li>générateurs&nbsp;: <pre><code data-trim class="javascript">
+function *g(): Iterable&lt;number&gt; {
+    for (var i = 0; i < 100; i++) {
+        yield i;
+    }
+    return 101;
+}
+						</code></pre></li>
+						<li>etc.</li>
 					</ul>
 				</section>
 
 				<section>						
-					<h2>TypeScript 1.5 (?) - RTTI</h2>
+					<h2>TypeScript x.x - RTTI</h2>
 						<pre style="float:left;width:49%"><code data-trim class="javascript">
 //TypeScript
-
 
 function firstChar(word : string) {
   return word.charAt(0);    							
@@ -442,76 +512,7 @@ displayFirstCharacter(x);
 						</aside>
 						
 					</section>
-					<section>
-					<h2>TypeScript 1.5 - Decorators</h2>
-					<pre style="float:left;width:49%"><code data-trim class="javascript">
-@annotation
-class MyClass { }
-
-function annotation(target) {
-   // Add a property on target
-   target.annotated = true;
-}
-						</code></pre>
-						<pre style="float:right;width:49%"><code data-trim class="javascript">
-var MyClass = annotation(function () {
-    function MyClass() {
-    }
-    return MyClass;
-})();
-
-function annotation(target) {
-    // Add a property on target
-    target.annotated = true;
-}
-						</code></pre>
-					</section>
-					<section>
-					<h2>TypeScript 1.5 - ES6</h2>
-					<pre><code data-trim class="javascript">
-var [m, d, y] = [3, 14, 1977];
-console.log(d) // 14
-
-for (let word of ["one", "two", "three"]) 
-  console.log(word);  //affiche "one","two","three"
-
-function* idMaker() {
-    var index = 0;
-    while(true)
-        yield index++;
-}
-
-var gen = idMaker();
-
-console.log(gen.next().value); // 0
-console.log(gen.next().value); // 1
-					</code></pre>
 					
-					</section>
-				<section>
-					<h2>TypeScript 1.5 - module ES6</h2>
-					<pre><code data-trim class="javascript">
-// math.ts
-export function add(x, y) { return x + y }
-export function subtract(x, y) { return x – y }
-export default function multiply(x, y) { return x * y }
-
-
-// myFile.ts
-import {add, subtract} from "math";
-import times from "math";
-var result = times(add(2, 3), subtract(5, 3));
-					</code></pre>
-				</section>
-				
-
-				<section>
-					<h2>TypeScript 2.0</h2>
-					<ul>                        
-                        <li>ES6 (template String++, etc.)</li>
-                        <li>ES7 (async/await)</li>
-                    </ul>
-				</section>
 
 				<section>
 					<h2>Les limites</h2>
@@ -519,7 +520,6 @@ var result = times(add(2, 3), subtract(5, 3));
 						<li>Un précompileur de plus</li>
 						<li>La vitesse de compilation</li>
 						<li>Les fichiers de définition</li>
-						<li>Pas compatible avec JSX</li>
 					</ul>
 				</section>
 
@@ -537,12 +537,8 @@ var result = times(add(2, 3), subtract(5, 3));
 				<section>
 					<h2>Questions&nbsp;?</h2>
 				</section>
-
-				
-	
 			</div>
-
-			<div class="footer"><span class="hashtag">#typescriptDevoxx</span><span class="twitter">@benoit_lemoine</span></div>
+			
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
