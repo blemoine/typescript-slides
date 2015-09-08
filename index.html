@@ -73,7 +73,7 @@
 		
 				<section>
 					<h2>À la mode != Pratique</h2>
-					<img src="images/la-mode-wtf.jpg" style="width:45%" />
+					TODO Img la mode WTF
 				</section>
 
 				<section >
@@ -98,9 +98,8 @@
 
 				<section>
 					<h2>Transpilers</h2>
-					TODO image de bender
-					Je vais faire le miens de langage, avec des tables de black jack et des putes.
-					URL du site avec tous les langages
+					<a href="https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-JS">https://github.com/jashkenas/coffeescript/wiki/list-of-languages-that-compile-to-JS  (plus de 350)</a>
+					<img src="images/bender.jpeg" />
 				</section>
 
 				<section>
@@ -117,7 +116,7 @@
 
 				<section>
 					<h2>Le système de type</h2>
-					Une image d'équation ?
+					<img src="images/Lambda_cube.png" />
 				</section>
 
 				<section>
@@ -381,11 +380,7 @@ _.filter([1, 2, 3, 4], (i:string) => i%2 === 0) //ne compile pas
 					<img src="images/yoDawg" />
 				</section>
 
-		<section>
-			<h2>Pourquoi choisir Typescript&nbsp;?</h2>
 
-			TODO comparaison avec Babel, utilisation dans Angular 2 / Aurélia
-		</section>
 
 		<section>
 			<h2>TypeScript sur un vrai projet</h2>
@@ -452,11 +447,6 @@ angular.module(MyCtrl.name, MyCtrl);
 				</section>
 
 				<section>
-					<h2>Exemple post moderne</h2>
-					Angular 2 / Aurélia
-				</section>
-
-				<section>
 					<h2>Le futur</h2>
 				</section>
 
@@ -502,8 +492,6 @@ function firstChar(word) {
 
 var x = 3;
 displayFirstCharacter(x);
-
-
 						</code></pre>
 						
 						<aside class="notes">
@@ -513,13 +501,65 @@ displayFirstCharacter(x);
 						
 					</section>
 					
+		<section>
+			<h2>Pourquoi choisir Typescript&nbsp;?</h2>
+			TODO img ?
+		</section>
+
+		<section>
+			<h2>Babel</h2>
+			<ul>
+				<li><a href="https://babeljs.io/">https://babeljs.io/</a></li>
+				<li><a href="http://kangax.github.io/compat-table/es6/">http://kangax.github.io/compat-table/es6/</a></li>
+			</ul>			
+		</section>
+
+		<section>
+			<h2>Angular 2</h2>
+			<a href="https://angular.io/">https://angular.io/</a>
+			<pre><code data-trim  class="javascript">
+import {Component, View, bootstrap, NgFor} from 'angular2/angular2';
+@Component({selector: 'todo-list'})
+@View({
+  template: `&lt;ul>&lt;li *ng-for="#todo of todos">{{ todo }}&lt;/li>&lt;/ul>`,   
+  directives: [NgFor]
+})
+class TodoList {
+  todos: Array&lt;string> = ["Eat Breakfast", "Walk Dog", "Breathe"];
+  constructor() {    
+  }  
+}
+bootstrap(TodoList);				
+			</code></pre>
+		</section>
+
+		<section>
+			<h2>Aurelia</h2>
+			<a href="http://aurelia.io/">http://aurelia.io/</a>
+			<pre><code data-trim  class="javascript">
+export class Welcome{
+  heading:string = 'Welcome to the Aurelia Navigation App!';
+  firstName:string = 'John';
+  lastName:string = 'Doe';
+
+  get fullName(){
+    return `${this.firstName} ${this.lastName}`;
+  }
+
+  submit(){
+    alert(`Welcome, ${this.fullName}!`);
+  }
+}				
+			</code></pre>
+		</section>
+
 
 				<section>
 					<h2>Les limites</h2>
 					<ul>
-						<li>Un précompileur de plus</li>
+						<li>Un transpiler de plus</li>
 						<li>La vitesse de compilation</li>
-						<li>Les fichiers de définition</li>
+						<li>Les fichiers de définitions</li>
 					</ul>
 				</section>
 
