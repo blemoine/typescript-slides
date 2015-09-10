@@ -57,8 +57,8 @@
 					<h2>Qui suis-je ?</h2>
 					<ul>
 						<li>Benoit Lemoine</li>
-						<li class="fragment">Développeur full-stack chez Captain Dash</li>
-						<li class="fragment">@benoit_lemoine</li>						
+						<li >Développeur full-stack chez Captain Dash</li>
+						<li >@benoit_lemoine</li>						
 					</ul>
 				</section>
 
@@ -341,19 +341,77 @@ class MyAppComponent {
 
 				<section>
 					<h2>Les modules</h2>					
-					<img src="images/standards" />
+					<img src="images/standards.png" />
 				</section>
 
 				<section>
 					<h2>Module interne</h2>
+Validation.ts
+<pre><code data-trim class="javascript">
+module Validation {
+    export interface StringValidator {
+        isAcceptable(s: string): boolean;
+    }
+}
+</code></pre>
+
+LettersOnlyValidator.ts
+<pre><code data-trim class="javascript">
+/// <reference path="Validation.ts" />
+module Validation {
+    var lettersRegexp = /^[A-Za-z]+$/;
+    export class LettersOnlyValidator implements StringValidator {
+        isAcceptable(s: string) {
+            return lettersRegexp.test(s);
+        }
+    }
+}
+</code></pre>
+
 				</section>
 
 				<section>
 					<h2>Module externe</h2>
+Validation.ts
+<pre><code data-trim class="javascript">
+export interface StringValidator {
+    isAcceptable(s: string): boolean;
+}
+</code></pre>
+
+LettersOnlyValidator.ts
+<pre><code data-trim class="javascript">
+import validation = require('./Validation');
+var lettersRegexp = /^[A-Za-z]+$/;
+export class LettersOnlyValidator implements validation.StringValidator {
+    isAcceptable(s: string) {
+        return lettersRegexp.test(s);
+    }
+}
+</code></pre>
+
 				</section>
 
 				<section>
 					<h2>Module ES6</h2>
+Validation.ts
+<pre><code data-trim class="javascript">
+interface StringValidator {
+    isAcceptable(s: string): boolean;
+}
+export StringValidator
+</code></pre>
+
+LettersOnlyValidator.ts
+<pre><code data-trim class="javascript">
+import * from './Validation');
+var lettersRegexp = /^[A-Za-z]+$/;
+export class LettersOnlyValidator implements StringValidator {
+    isAcceptable(s: string) {
+        return lettersRegexp.test(s);
+    }
+}
+</code></pre>
 				</section>
 
 				<section>
@@ -385,9 +443,8 @@ _.filter([1, 2, 3, 4], (i:string) => i%2 === 0) //ne compile pas
 				<section>
 					<h2>TSD</h2>
 					<a href="http://definitelytyped.org/tsd/">http://definitelytyped.org/tsd/</a>
-					<img src="images/yoDawg" />
+					<img src="images/yoDawg.jpg" />
 				</section>
-
 
 
 		<section>
@@ -395,17 +452,17 @@ _.filter([1, 2, 3, 4], (i:string) => i%2 === 0) //ne compile pas
 		</section>
 
 		<section>
-			<h2>List des prérequis</h2>
-			Module ES6
-			Cible ES5
-			Sur un framework standard aujourd'hui (Angular 1.x)
+			<h2>Liste des prérequis</h2>
+			<ul>
+				<li>Projet moderne : module ES6</li>
+				<li class="fragment">mais pas trop non plus : angular 1.x + ES5</li>
+			</ul>
 		</section>
 
 		<section>
 			Montrer le pipeline gulp
 			(En gros qu'il faut compiler vers ES6 puis avec Babel puis avec JSPM)
 		</section>
-
 
 	<section>
 
@@ -511,7 +568,7 @@ displayFirstCharacter(x);
 					
 		<section>
 			<h2>Pourquoi choisir Typescript&nbsp;?</h2>
-			TODO img ?
+			<img src="images/captain.jpeg" />
 		</section>
 
 		<section>
