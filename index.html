@@ -399,12 +399,12 @@ Validation.ts
 interface StringValidator {
     isAcceptable(s: string): boolean;
 }
-export StringValidator
+export default StringValidator
 </code></pre>
 
 LettersOnlyValidator.ts
 <pre><code data-trim class="javascript">
-import * from './Validation');
+import StringValidator from './Validation';
 var lettersRegexp = /^[A-Za-z]+$/;
 export class LettersOnlyValidator implements StringValidator {
     isAcceptable(s: string) {
