@@ -506,69 +506,83 @@ _.filter([1, 2, 3, 4], (i:string) => i%2 === 0) //ne compile pas
 		</section>
 
 		<section>
-			<h2>Gulp</h2>
-<pre><code data-trim class="javascript">
-var tsProject = ts.createProject({
-    noExternalResolve: true,
-    noLib: true,
-    target: 'es6'
-});
+			<h2>JSPM</h2>
+		<a href="https://github.com/frankwallis/plugin-typescript">https://github.com/frankwallis/plugin-typescript</a>
+	<pre><code data-trim>
+System.config({
+  defaultJSExtensions: true,
+  transpiler: "typescript",
+  typescriptOptions: {
+    "experimentalDecorators": true,
+    "typeCheck": true
+  },
+  packages: {
+    "javascripts/spa2/src": {
+      "defaultExtension": "ts",
+      "meta": {
+        "*.ts": { "loader": "ts" }
+      }
+    }
+  }
+}
+	</code></pre>
+		</section>
 
-gulp.task('build-system', function () {
-  return gulp.src(paths.source)
-    .pipe(ts(tsProject))
-    .pipe(to5(assign({}, compilerOptions, {modules:'system'})))
-    .pipe(gulp.dest(paths.output + 'dist'));
-});
+		<section>
+			<h2>Du code&nbsp;!</h2>
+<pre><code data-trim>
+//MyController.ts
+/// &lt;reference path="../../../definitions/angularjs/angular.d.ts" />
+class MyController {
+
+   public name:string;
+
+   static $inject = ['$http'];
+   constructor($http:ng.IHttpService) {
+      $http.get('anUrl').then(response => this.name = response.data);
+   }
+}
+
+export default MyService
 </code></pre>
 		</section>
 
-	<section>
+ <section>
+                        <h2>Du code&nbsp;!</h2>
+<pre><code data-trim>
+//app.ts
+/// &lt;reference path="../../definitions/angularjs/angular.d.ts" />
+import * as angular from 'angular';
+import ngAnimate from 'angular-animate';
+import MyController from './MyController';
 
-					<section>
-                        <h2>Exemple Angular - Avant</h2>
-                        <pre><code data-trim class="javascript">
-angular.module('MyCtrl', ['myService','$scope', 
-  function(myService, $scope) {
-    
-    $scope.myValue = myService.maValue;
+angular.module('myApp', [ngAnimate])
+    .controller(MyController.name, MyController);
+</code></pre>
+                </section>
 
-    $scope.changeValue = function() {
-        $scope.myValue = Math.random();
-    };
-  }
-])
+<section>
+                        <h2>Du code&nbsp;!</h2>
+<pre><code data-trim class="actionscript">           
+//index.html
+ &lt;script src="jspm_packages/system.js">&lt;/script>
+ &lt;script src="config.js">&lt;/script>
+ &lt;script>
+  System.import('app').then(function() {
+    return System.import('angular');
+  })
+  .then(function(angular) {
+    console.log('running');
+    angular.bootstrap(document, ['venom']);
+    console.log(JSON.stringify(System.typescriptOptions));
+  })
+  .catch(function(err) {
+     console.log('Error: ', err.stack);
+  });
+ &lt;/script>
+</code></pre>
+                </section>
 
-//template
-&lt;div ng-controller="MyCtrl"&gt;
- {{myValue}}
-&lt;/div&gt;
-                        </code></pre>
-                    </section>
-
-                    <section>
-                        <h2>Exemple Angular - Après</h2>
-                        <pre><code data-trim class="javascript">
-class MyCtrl {
-    myValue:number;
-
-    static $inject = ['myService'];
-    constructor(myService:MyService) {
-    	this.myValue = myService.maValue;
-    }    
-    changeValue() {
-        this.myValue = Math.random();
-    }
-}
-angular.module(MyCtrl.name, MyCtrl);
-//template
-&lt;div ng-controller="MyCtrl as myCtrl"&gt;
- {{myCtrl.myValue}}
-&lt;/div&gt;
-
-                        </code></pre>
-                    </section>
-				</section>
 
 				<section>
 					<h2>Le futur</h2>
