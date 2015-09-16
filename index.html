@@ -108,6 +108,7 @@
 					<ul>
 						<li>Made in Microsoft en 2012...</li>
 						<li>... mais open-source et libre (License Apache 2) : <a href="https://github.com/Microsoft/TypeScript">https://github.com/Microsoft/TypeScript</a></li>
+						<li>Développé par Anders Hejlsberg (Delphi, Turbo Pascal, C#, etc.)</li>
 						<li class="fragment">Super-ensemble d'ES5</li>
 						<li class="fragment">Typage statique</li>
 						<li class="fragment">Polyfill pour ES6</li>
@@ -255,27 +256,6 @@ ducks.quack(); // undefined is not a function
 				</section>	
 
 				<section>
-					<h2>Les fonctions sont bivariantes</h2>
-<pre><code data-trim>
-enum EventType { Mouse, Keyboard }	
-class Event {}
-class MouseEvent {
-  x:number;
-  y:number;
-}
-class KeyboardEvent extends Event {
-  key:number;
-}
-
-function on(eventType: EventType, callback: (e:Event) => void) {
-  callback(new KeyboardEvent())	
-}
-
-on(EventType.Mouse, (e:MouseEvent) => console.log(e.x + " "+e.y));
-</code></pre>
-				</section>
-				
-				<section>
 					<h2>ES6 - ES7</h2>
 					<img src="images/sucre.jpg" width="60%"/>
 				</section>
@@ -291,10 +271,10 @@ myVar = 3;
 <pre><code data-trim class="javascript">
 
 if(true) {
-  let myVar = 2;
+  let anotherVar = 2;
 }
 //ne compile pas	
-console.log(myVar);
+console.log(anotherVar);
 </code></pre>
 				</section>
 
@@ -403,7 +383,7 @@ module Validation {
 
 LettersOnlyValidator.ts
 <pre><code data-trim class="javascript">
-/// <reference path="Validation.ts" />
+/// &lt;reference path="Validation.ts" />
 module Validation {
     var lettersRegexp = /^[A-Za-z]+$/;
     export class LettersOnlyValidator implements StringValidator {
@@ -543,7 +523,7 @@ class MyController {
    }
 }
 
-export default MyService
+export default MyController
 </code></pre>
 		</section>
 
@@ -573,7 +553,7 @@ angular.module('myApp', [ngAnimate])
   })
   .then(function(angular) {
     console.log('running');
-    angular.bootstrap(document, ['venom']);
+    angular.bootstrap(document, ['myApp']);
     console.log(JSON.stringify(System.typescriptOptions));
   })
   .catch(function(err) {
@@ -618,7 +598,7 @@ function firstChar(word : string) {
 
 
 var x : any = 3;
-displayFirstCharacter(x);
+firstChar(x);
 						</code></pre>
 						<pre style="float:right;width:49%"><code data-trim class="javascript">
 //JavaScript							
@@ -630,7 +610,7 @@ function firstChar(word) {
 }
 
 var x = 3;
-displayFirstCharacter(x);
+firstChar(x);
 						</code></pre>
 						
 						<aside class="notes">
