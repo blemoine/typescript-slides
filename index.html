@@ -234,15 +234,20 @@ var chicken:Quacker = {
 				</section>
 
 				<section>
-					<h2>Les types - Union Type</h2>
-					<pre><code data-trim>
-var perry = new Platypus('Perry');
-var donald = new Duck('Donald');
+					<h2>Les guardes</h2>
+<pre><code data-trim class="javascript">
+function isDuck(a:Duck):a is Duck {
+  return a.constructor.name == 'Duck';
+}
 
-var animals:Array&lt;Animal&gt; = [perry, donald];
-var duckOrPlatypus:Array&lt;Duck|Platypus&gt; = [perry, donald];
-					 </code></pre>
+var x: Animal;
+
+if(isDuck(x)) {
+  x.quack(); // OK, x is Duck in this block
+}
+</code></pre>					
 				</section>
+
 				<section>
 					<h2>Pour les puristes</h2>
 					<h3>TypeScript is unsound</h3>
@@ -364,6 +369,20 @@ class MyAppComponent {
 }
 </code></pre>
                                 </section>
+
+                <section>
+                	<h2>Support de JSX</h2>
+<pre><code data-trim class="javascript">                	
+class MyComponent extends React.Component {
+  props: {
+    who?: string
+  },
+  render() {
+    return &lt;div>Hello, {this.props.who}&lt;/div>; 
+  }
+}	
+</code></pre>	
+                </section>                
 
 				<section>
 					<h2>Les modules</h2>					
@@ -570,20 +589,10 @@ angular.module('myApp', [ngAnimate])
 				</section>
 
 				<section>
-					<h2>Typescript 1.6</h2>
+					<h2>Typescript 1.7</h2>
 					<ul>
-						<li>Support de JSX</li>
-						<li>Type intersection&nbsp;: <code>Duck &amp; Hero</code></li>
-						<li>Class expression&nbsp;: <code>let maClass = class {}</code></li>
-						<li>générateurs&nbsp;: <pre><code data-trim class="javascript">
-function *g(): Iterable&lt;number&gt; {
-    for (var i = 0; i < 100; i++) {
-        yield i;
-    }
-    return 101;
-}
-						</code></pre></li>
-						<li>etc.</li>
+						<li>more ES6</li>
+						<li>more ES7</li>						
 					</ul>
 				</section>
 
