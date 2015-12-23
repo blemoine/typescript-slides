@@ -254,15 +254,15 @@ if(isDuck(x)) {
 class Nothing {
   isDefined:boolean = false;
 }
-class Just&lt;A> { 
+class Just&lt;A&gt; { 
   constructor(public el:A){}
   isDefined:boolean = true; 
 }
-type Maybe&lt;A> = Just&lt;A> | Nothing
+type Maybe&lt;A&gt; = Just&lt;A&gt; | Nothing
 
-function isJust&lt;A>(m:Maybe&lt;A>):m is Just&lt;A> { return m.isDefined}
+function isJust&lt;A&gt;(m:Maybe&lt;A&gt;):m is Just&lt;A&gt; { return m.isDefined}
 
-const justStr:Maybe&lt;String> = new Just("maString")
+const justStr:Maybe&lt;String&gt; = new Just("maString")
 //console.log(justStr.el.length) //ne compile pas
 if(isJust(justStr)) {
   console.log(justStr.el.length)
