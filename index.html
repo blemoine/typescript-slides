@@ -247,6 +247,30 @@ if(isDuck(x)) {
 }
 </code></pre>					
 				</section>
+				
+				<section>
+					<h2>ADT du pauvre</h2>
+<pre><code data-trim class="javascript">
+class Nothing {
+  isDefined:boolean = false;
+}
+class Just&lt;A> { 
+  constructor(public el:A){}
+  isDefined:boolean = true; 
+}
+type Maybe&lt;A> = Just&lt;A> | Nothing
+
+function isJust&lt;A>(m:Maybe&lt;A>):m is Just&lt;A> { return m.isDefined}
+
+const justStr:Maybe&lt;String> = new Just("maString")
+//console.log(justStr.el.length) //ne compile pas
+if(isJust(justStr)) {
+  console.log(justStr.el.length)
+}
+
+ 	
+</code></pre>					
+				</section>
 
 				<section>
 					<h2>Pour les puristes</h2>
